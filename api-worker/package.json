@@ -1,0 +1,12 @@
+{
+  "name": "gappa-ask",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Serverless endpoint behind the `ask` command on gappa.me. Retrieval + a typed Jev decision via OpenRouter.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test test/",
+    "dev": "node dev-server.mjs"
+  }
+}
