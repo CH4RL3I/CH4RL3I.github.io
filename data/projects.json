@@ -255,6 +255,32 @@
       ]
     },
     {
+      "id": "emberwatch",
+      "name": "emberwatch",
+      "kind": "public",
+      "group": "vision",
+      "pitch": "Fire and smoke detection with temporal alerting, evaluated on false alarms as much as recall. A portfolio project, not a certified safety device.",
+      "headline": "mAP@0.5 0.41; the temporal alert logic trades false alarms (86 → 8 per hour) against recall (0.87 → 0.60).",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "torchvision",
+        "OpenCV"
+      ],
+      "url": "https://github.com/CH4RL3I/emberwatch",
+      "homepage": null,
+      "language": null,
+      "topics": [
+        "alerting",
+        "computer-vision",
+        "fire-detection",
+        "object-detection",
+        "python",
+        "pytorch",
+        "safety"
+      ]
+    },
+    {
       "id": "immoapp",
       "name": "ImmoApp",
       "kind": "private",

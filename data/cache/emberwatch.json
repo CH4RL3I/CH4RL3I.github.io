@@ -1,0 +1,16 @@
+{
+  "name": "emberwatch",
+  "description": "Fire and smoke detection with temporal alerting, evaluated on false alarms as much as recall. A portfolio project, not a certified safety device.",
+  "language": null,
+  "homepage": null,
+  "topics": [
+    "alerting",
+    "computer-vision",
+    "fire-detection",
+    "object-detection",
+    "python",
+    "pytorch",
+    "safety"
+  ],
+  "html_url": "https://github.com/CH4RL3I/emberwatch"
+}

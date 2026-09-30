@@ -12,7 +12,8 @@
     "blind-committee",
     "touchdown",
     "Apto",
-    "hivemap"
+    "hivemap",
+    "emberwatch"
   ],
   "meta": {
     "fearcurve": {
@@ -112,6 +113,16 @@
         "torchvision",
         "OpenCV",
         "SciPy"
+      ],
+      "group": "vision"
+    },
+    "emberwatch": {
+      "headline": "mAP@0.5 0.41; the temporal alert logic trades false alarms (86 → 8 per hour) against recall (0.87 → 0.60).",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "torchvision",
+        "OpenCV"
       ],
       "group": "vision"
     }
