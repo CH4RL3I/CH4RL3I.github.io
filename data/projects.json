@@ -228,6 +228,33 @@
       ]
     },
     {
+      "id": "hivemap",
+      "name": "hivemap",
+      "kind": "public",
+      "group": "vision",
+      "pitch": "Aerial crowd analysis from drone video: detection, a hand-built tracker, density maps and ground-plane analytics, measured on VisDrone.",
+      "headline": "MOTA 0.23 and IDF1 0.49 on four VisDrone sequences; tiling lifts small-person recall from 0.31 to 0.39.",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "torchvision",
+        "OpenCV",
+        "SciPy"
+      ],
+      "url": "https://github.com/CH4RL3I/hivemap",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "computer-vision",
+        "crowd-analysis",
+        "drones",
+        "multi-object-tracking",
+        "python",
+        "pytorch",
+        "visdrone"
+      ]
+    },
+    {
       "id": "immoapp",
       "name": "ImmoApp",
       "kind": "private",

@@ -115,7 +115,10 @@ for (const id of cfg.repos) {
     pitch: r.info.description || '', headline: m.headline || '', stack: m.stack || (r.info.language ? [r.info.language] : []),
     url: repoUrl, homepage: m.homepage || r.info.homepage || null, language: r.info.language || null, topics: r.info.topics || [],
   });
-  addChunk(id, 'Summary', `${id}: ${r.info.description || ''} ${m.headline || ''} Stack: ${(m.stack || []).join(', ')}.`, repoUrl, 'summary');
+  const desc = r.info.description || '';
+  const head = m.headline && !desc.includes(m.headline.slice(0, 24)) ? m.headline : '';
+  const topics = (r.info.topics || []).map((t) => t.replace(/-/g, ' ')).join(', ');
+  addChunk(id, 'Summary', `${id}: ${desc} ${head} Stack: ${(m.stack || []).join(', ')}.${topics ? ` Topics: ${topics}.` : ''}`.replace(/\s+/g, ' '), repoUrl, 'summary');
   for (const s of sections(r.readme)) {
     if (/^licen[sc]e$/i.test(s.heading)) continue;
     const body = clean(s.body.join('\n'));

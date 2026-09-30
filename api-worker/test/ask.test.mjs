@@ -122,3 +122,15 @@ test('no question text is written to stdout or stderr', async () => {
   try { await handleAsk(post({ question: 'SECRET-QUESTION-TEXT touchdown' }), mk()); } finally { process.stdout.write = o; process.stderr.write = e; }
   assert.ok(!w.join('').includes('SECRET-QUESTION-TEXT'));
 });
+
+test('runner-up projects from choice probabilities are listed in `also`', async () => {
+  const { interpretAnswers } = await import('../lib/ask-core.mjs');
+  const projects = [{ id: 'touchdown' }, { id: 'hivemap' }, { id: 'fluke' }];
+  const hits = [{ chunk: { id: 'touchdown#summary' } }];
+  const resp = { model: 'typesafe/jev-1.13-20260917', answers: {
+    project: { type: 'choice', choice: 'touchdown', confidence: 0.7, probabilities: { touchdown: 0.66, hivemap: 0.28, fluke: 0.06, none: 0 } },
+    passage: { type: 'choice', choice: 'p1', confidence: 0.9, probabilities: { p1: 1 } },
+    answerable: { type: 'noul', noul: 0.9 } } };
+  const d = interpretAnswers(resp, hits, projects);
+  assert.deepEqual(d.also, [{ project: 'hivemap', p: 0.28 }]);
+});

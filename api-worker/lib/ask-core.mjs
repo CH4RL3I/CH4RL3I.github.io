@@ -111,8 +111,15 @@ export function interpretAnswers(resp, hits, projects) {
   const passage_ids = a.passage.choice === 'none' && !ranked.length ? [] : ranked.map((x) => byKey[x.k]).slice(0, 3);
   const confidence = +num(a.project.confidence).toFixed(2);
   const answerable = num(a.answerable.noul) >= 0.5 && a.passage.choice !== 'none';
+  const pp = a.project.probabilities && typeof a.project.probabilities === 'object' ? a.project.probabilities : {};
+  // Choice picks one option; its per-option probabilities surface the runners-up.
+  const also = [...ids]
+    .filter((id) => id !== project && num(pp[id]) >= 0.1)
+    .sort((x, y) => num(pp[y]) - num(pp[x]))
+    .slice(0, 2)
+    .map((id) => ({ project: id, p: +num(pp[id]).toFixed(2) }));
   return {
-    project, passage_ids, confidence, answerable,
+    project, passage_ids, confidence, answerable, also,
     probability: +num(a.project.probabilities?.[a.project.choice]).toFixed(2),
     model: typeof resp.model === 'string' ? resp.model.slice(0, 64) : JEV_MODEL,
   };
@@ -146,7 +153,7 @@ export async function handleAsk(req, deps) {
 
   // Retrieval happens here, from our own index. Nothing passage-like is ever taken from the client.
   const hits = search(deps.index, v.question, LIMITS.topK);
-  if (!hits.length) return reply(200, { project: 'none', passage_ids: [], confidence: 0, answerable: false, probability: 0, model: JEV_MODEL });
+  if (!hits.length) return reply(200, { project: 'none', passage_ids: [], confidence: 0, answerable: false, also: [], probability: 0, model: JEV_MODEL });
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), LIMITS.timeoutMs);

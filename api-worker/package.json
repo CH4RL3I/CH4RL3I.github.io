@@ -6,7 +6,7 @@
   "description": "Serverless endpoint behind the `ask` command on gappa.me. Retrieval + a typed Jev decision via OpenRouter.",
   "engines": { "node": ">=20" },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/*.test.mjs",
     "dev": "node dev-server.mjs"
   }
 }

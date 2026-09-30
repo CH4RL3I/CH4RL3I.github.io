@@ -2,7 +2,7 @@ import { search } from './bm25.mjs';
 
 // Set after the `gappa-ask` Vercel project is deployed, e.g. 'https://gappa-ask.vercel.app/api/ask'.
 // While empty, `ask` goes straight to the local BM25 fallback.
-const ASK_ENDPOINT = '';
+const ASK_ENDPOINT = 'https://gappa-ask.vercel.app/api/ask';
 const ASK_TIMEOUT_MS = 4000;
 
 const LINKEDIN = 'https://www.linkedin.com/in/emilio-gappa-44448223a/';
@@ -219,6 +219,7 @@ function renderDecision(dec) {
     '  ', span('k', '"project"'), ':     ', span('s', `"${dec.project}"`), ',\n',
     '  ', span('k', '"passage_ids"'), ': [', ...dec.passage_ids.flatMap((id, i) => [i ? ', ' : '', span('s', `"${id}"`)]), '],\n',
     '  ', span('k', '"confidence"'), ':  ', span('n', dec.confidence.toFixed(2)), ' ', span('bar', bar(dec.confidence)), ',\n',
+    ...(dec.also.length ? ['  ', span('k', '"also"'), ':        [', ...dec.also.flatMap((x, i) => [i ? ', ' : '', span('s', `"${x.project}"`), ' ', span('n', x.p.toFixed(2))]), '],\n'] : []),
     '  ', span('k', '"answerable"'), ':  ', span(dec.answerable ? 't' : 'f', String(dec.answerable)), '\n',
     '}');
   log.append(box); toBottom();
@@ -235,7 +236,7 @@ async function askServer(question) {
     const d = await r.json();
     const ok = d && typeof d.project === 'string' && Array.isArray(d.passage_ids) && typeof d.confidence === 'number' && typeof d.answerable === 'boolean';
     if (!ok) throw new Error('shape');
-    return { project: d.project.slice(0, 64), passage_ids: d.passage_ids.filter((x) => typeof x === 'string').slice(0, 5), confidence: Math.min(1, Math.max(0, d.confidence)), answerable: d.answerable, model: typeof d.model === 'string' ? d.model.slice(0, 40) : 'typesafe/jev-1.13' };
+    return { project: d.project.slice(0, 64), passage_ids: d.passage_ids.filter((x) => typeof x === 'string').slice(0, 5), confidence: Math.min(1, Math.max(0, d.confidence)), answerable: d.answerable, also: Array.isArray(d.also) ? d.also.filter((x) => x && typeof x.project === 'string' && typeof x.p === 'number').slice(0, 2).map((x) => ({ project: x.project.slice(0, 64), p: Math.min(1, Math.max(0, x.p)) })) : [], model: typeof d.model === 'string' ? d.model.slice(0, 40) : 'typesafe/jev-1.13' };
   } finally { clearTimeout(t); }
 }
 

@@ -1,0 +1,16 @@
+{
+  "name": "hivemap",
+  "description": "Aerial crowd analysis from drone video: detection, a hand-built tracker, density maps and ground-plane analytics, measured on VisDrone.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "computer-vision",
+    "crowd-analysis",
+    "drones",
+    "multi-object-tracking",
+    "python",
+    "pytorch",
+    "visdrone"
+  ],
+  "html_url": "https://github.com/CH4RL3I/hivemap"
+}
