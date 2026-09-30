@@ -1,0 +1,14 @@
+{
+  "name": "fearcurve",
+  "description": "Market-implied probability distributions from option prices (Breeden-Litzenberger), validated against Black-Scholes.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "breeden-litzenberger",
+    "options",
+    "python",
+    "quant-finance",
+    "risk-neutral-density"
+  ],
+  "html_url": "https://github.com/CH4RL3I/fearcurve"
+}

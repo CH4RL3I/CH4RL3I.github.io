@@ -1,0 +1,16 @@
+{
+  "name": "blind-committee",
+  "description": "LLM analyst agents, a risk manager and a portfolio manager, with a defence against lookahead through the model's training data. Evaluated honestly.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "agents",
+    "backtesting",
+    "llm",
+    "lookahead-bias",
+    "multi-agent",
+    "portfolio-management",
+    "python"
+  ],
+  "html_url": "https://github.com/CH4RL3I/blind-committee"
+}

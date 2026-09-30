@@ -1,0 +1,16 @@
+{
+  "name": "spike-and-gradient",
+  "description": "Linear regression, a Hodgkin-Huxley neuron and a neural network from first principles in NumPy, each verified against a trusted reference.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "computational-neuroscience",
+    "from-scratch",
+    "hodgkin-huxley",
+    "machine-learning",
+    "neural-network",
+    "numpy",
+    "python"
+  ],
+  "html_url": "https://github.com/CH4RL3I/spike-and-gradient"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "footnote",
+  "description": "Question answering over SEC 10-K filings with citations, and an XBRL-derived eval harness that measures how often it's right.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "evaluation",
+    "finance",
+    "llm",
+    "python",
+    "rag",
+    "retrieval",
+    "sec-filings"
+  ],
+  "html_url": "https://github.com/CH4RL3I/footnote"
+}

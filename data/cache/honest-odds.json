@@ -1,0 +1,15 @@
+{
+  "name": "honest-odds",
+  "description": "Are prediction markets calibrated? Calibration, favourite-longshot bias and a strict out-of-sample check on 2,946 resolved Polymarket markets.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "calibration",
+    "forecasting",
+    "polymarket",
+    "prediction-markets",
+    "python",
+    "quant-finance"
+  ],
+  "html_url": "https://github.com/CH4RL3I/honest-odds"
+}

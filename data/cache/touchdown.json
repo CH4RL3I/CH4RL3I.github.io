@@ -1,0 +1,16 @@
+{
+  "name": "touchdown",
+  "description": "Vision-based drone landing: detect the pad, estimate pose, guide the descent. 86/100 simulated landings, median 9.9 cm, ~370 fps on a laptop CPU.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "computer-vision",
+    "drones",
+    "kalman-filter",
+    "opencv",
+    "pose-estimation",
+    "python",
+    "robotics"
+  ],
+  "html_url": "https://github.com/CH4RL3I/touchdown"
+}

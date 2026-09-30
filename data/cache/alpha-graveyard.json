@@ -1,0 +1,15 @@
+{
+  "name": "alpha-graveyard",
+  "description": "Automated trading-strategy discovery, and why most discoveries are fake: 15,000 candidates, 0 survive out of sample.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "backtesting",
+    "deflated-sharpe-ratio",
+    "genetic-programming",
+    "overfitting",
+    "python",
+    "quant-finance"
+  ],
+  "html_url": "https://github.com/CH4RL3I/alpha-graveyard"
+}

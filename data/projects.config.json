@@ -1,0 +1,23 @@
+{
+  "owner": "CH4RL3I",
+  "profileRepo": "CH4RL3I",
+  "note": "Add a repo id to `repos` (and optionally an entry in `meta`), then run: node scripts/build-index.mjs",
+  "repos": ["fearcurve", "fluke", "footnote", "honest-odds", "spike-and-gradient", "alpha-graveyard", "blind-committee", "touchdown", "Apto"],
+  "meta": {
+    "fearcurve":          { "headline": "Validated against the analytic Black-Scholes case.", "stack": ["Python", "NumPy/SciPy", "yfinance"], "group": "research" },
+    "fluke":              { "headline": "Probability of Backtest Overfitting (CSCV) and Deflated Sharpe Ratio.", "stack": ["Python", "NumPy", "pandas", "SciPy"], "group": "research" },
+    "footnote":           { "headline": "Cited answers over 10-K filings, scored against an XBRL-derived gold set.", "stack": ["Python", "BM25", "XBRL", "Anthropic API", "SQLite"], "group": "research" },
+    "honest-odds":        { "headline": "2,946 resolved Polymarket markets, strict out-of-sample check.", "stack": ["Python", "Polymarket data"], "group": "research" },
+    "spike-and-gradient": { "headline": "97.8% on MNIST, every model verified against a reference.", "stack": ["Python", "NumPy", "SciPy", "scikit-learn"], "group": "research" },
+    "alpha-graveyard":    { "headline": "15,000 candidate strategies, 0 survive the held-out decade.", "stack": ["Python", "genetic search"], "group": "research" },
+    "blind-committee":    { "headline": "Does not beat equal weight, and says so.", "stack": ["Python", "LLM agents", "Anthropic API", "XBRL"], "group": "research" },
+    "touchdown":          { "headline": "86/100 simulated landings, median error 9.9 cm, ~370 fps on a laptop CPU.", "stack": ["Python", "OpenCV", "PnP", "Kalman filter"], "group": "research" },
+    "Apto":               { "headline": "Built at the START Unicorn Lisbon hackathon. Live.", "stack": ["Next.js", "React", "TypeScript", "Tailwind", "Supabase", "Vercel"], "group": "product", "homepage": "https://apto-azure.vercel.app" }
+  },
+  "private": {
+    "immoapp":     { "name": "ImmoApp",                  "headline": "In beta on TestFlight.",        "stack": ["iOS", "API"] },
+    "facility-service-tooling": { "name": "Facility-service tooling", "headline": "Running in production.", "stack": ["Web apps"] },
+    "fitfit":      { "name": "FITFIT",                   "headline": "", "stack": ["iOS", "LiDAR"] },
+    "ironman-trainer": { "name": "Ironman Trainer",      "headline": "", "stack": ["Garmin sync", "AI coach"] }
+  }
+}

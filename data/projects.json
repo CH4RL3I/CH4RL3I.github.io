@@ -1,0 +1,294 @@
+{
+  "owner": "CH4RL3I",
+  "links": {
+    "github": "https://github.com/CH4RL3I",
+    "linkedin": "https://www.linkedin.com/in/emilio-gappa-44448223a/"
+  },
+  "projects": [
+    {
+      "id": "fearcurve",
+      "name": "fearcurve",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Market-implied probability distributions from option prices (Breeden-Litzenberger), validated against Black-Scholes.",
+      "headline": "Validated against the analytic Black-Scholes case.",
+      "stack": [
+        "Python",
+        "NumPy/SciPy",
+        "yfinance"
+      ],
+      "url": "https://github.com/CH4RL3I/fearcurve",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "breeden-litzenberger",
+        "options",
+        "python",
+        "quant-finance",
+        "risk-neutral-density"
+      ]
+    },
+    {
+      "id": "fluke",
+      "name": "fluke",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Is your best backtest real? Probability of Backtest Overfitting (CSCV) and Deflated Sharpe Ratio after López de Prado.",
+      "headline": "Probability of Backtest Overfitting (CSCV) and Deflated Sharpe Ratio.",
+      "stack": [
+        "Python",
+        "NumPy",
+        "pandas",
+        "SciPy"
+      ],
+      "url": "https://github.com/CH4RL3I/fluke",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "backtesting",
+        "overfitting",
+        "python",
+        "quant-finance",
+        "sharpe-ratio"
+      ]
+    },
+    {
+      "id": "footnote",
+      "name": "footnote",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Question answering over SEC 10-K filings with citations, and an XBRL-derived eval harness that measures how often it's right.",
+      "headline": "Cited answers over 10-K filings, scored against an XBRL-derived gold set.",
+      "stack": [
+        "Python",
+        "BM25",
+        "XBRL",
+        "Anthropic API",
+        "SQLite"
+      ],
+      "url": "https://github.com/CH4RL3I/footnote",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "evaluation",
+        "finance",
+        "llm",
+        "python",
+        "rag",
+        "retrieval",
+        "sec-filings"
+      ]
+    },
+    {
+      "id": "honest-odds",
+      "name": "honest-odds",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Are prediction markets calibrated? Calibration, favourite-longshot bias and a strict out-of-sample check on 2,946 resolved Polymarket markets.",
+      "headline": "2,946 resolved Polymarket markets, strict out-of-sample check.",
+      "stack": [
+        "Python",
+        "Polymarket data"
+      ],
+      "url": "https://github.com/CH4RL3I/honest-odds",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "calibration",
+        "forecasting",
+        "polymarket",
+        "prediction-markets",
+        "python",
+        "quant-finance"
+      ]
+    },
+    {
+      "id": "spike-and-gradient",
+      "name": "spike-and-gradient",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Linear regression, a Hodgkin-Huxley neuron and a neural network from first principles in NumPy, each verified against a trusted reference.",
+      "headline": "97.8% on MNIST, every model verified against a reference.",
+      "stack": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "scikit-learn"
+      ],
+      "url": "https://github.com/CH4RL3I/spike-and-gradient",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "computational-neuroscience",
+        "from-scratch",
+        "hodgkin-huxley",
+        "machine-learning",
+        "neural-network",
+        "numpy",
+        "python"
+      ]
+    },
+    {
+      "id": "alpha-graveyard",
+      "name": "alpha-graveyard",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Automated trading-strategy discovery, and why most discoveries are fake: 15,000 candidates, 0 survive out of sample.",
+      "headline": "15,000 candidate strategies, 0 survive the held-out decade.",
+      "stack": [
+        "Python",
+        "genetic search"
+      ],
+      "url": "https://github.com/CH4RL3I/alpha-graveyard",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "backtesting",
+        "deflated-sharpe-ratio",
+        "genetic-programming",
+        "overfitting",
+        "python",
+        "quant-finance"
+      ]
+    },
+    {
+      "id": "blind-committee",
+      "name": "blind-committee",
+      "kind": "public",
+      "group": "research",
+      "pitch": "LLM analyst agents, a risk manager and a portfolio manager, with a defence against lookahead through the model's training data. Evaluated honestly.",
+      "headline": "Does not beat equal weight, and says so.",
+      "stack": [
+        "Python",
+        "LLM agents",
+        "Anthropic API",
+        "XBRL"
+      ],
+      "url": "https://github.com/CH4RL3I/blind-committee",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "agents",
+        "backtesting",
+        "llm",
+        "lookahead-bias",
+        "multi-agent",
+        "portfolio-management",
+        "python"
+      ]
+    },
+    {
+      "id": "touchdown",
+      "name": "touchdown",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Vision-based drone landing: detect the pad, estimate pose, guide the descent. 86/100 simulated landings, median 9.9 cm, ~370 fps on a laptop CPU.",
+      "headline": "86/100 simulated landings, median error 9.9 cm, ~370 fps on a laptop CPU.",
+      "stack": [
+        "Python",
+        "OpenCV",
+        "PnP",
+        "Kalman filter"
+      ],
+      "url": "https://github.com/CH4RL3I/touchdown",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "computer-vision",
+        "drones",
+        "kalman-filter",
+        "opencv",
+        "pose-estimation",
+        "python",
+        "robotics"
+      ]
+    },
+    {
+      "id": "Apto",
+      "name": "Apto",
+      "kind": "public",
+      "group": "product",
+      "pitch": "Prove yourself, and jobs apply to you: students solve real work samples from startups. Built at START Unicorn Lisbon hackathon.",
+      "headline": "Built at the START Unicorn Lisbon hackathon. Live.",
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Supabase",
+        "Vercel"
+      ],
+      "url": "https://github.com/CH4RL3I/Apto",
+      "homepage": "https://apto-azure.vercel.app",
+      "language": "TypeScript",
+      "topics": [
+        "hackathon",
+        "nextjs",
+        "supabase"
+      ]
+    },
+    {
+      "id": "immoapp",
+      "name": "ImmoApp",
+      "kind": "private",
+      "group": "product",
+      "pitch": "Property-management platform for private landlords and property managers. iOS app + API with tenant, owner and manager roles, rent tracking and tax reports.",
+      "headline": "In beta on TestFlight.",
+      "stack": [
+        "iOS",
+        "API"
+      ],
+      "url": "https://github.com/CH4RL3I",
+      "homepage": null,
+      "language": null,
+      "topics": []
+    },
+    {
+      "id": "facility-service-tooling",
+      "name": "Facility-service tooling",
+      "kind": "private",
+      "group": "product",
+      "pitch": "Internal web apps for a facility-services company: quote calculator, fleet management with fuel-card fraud checks, and a client portal.",
+      "headline": "Running in production.",
+      "stack": [
+        "Web apps"
+      ],
+      "url": "https://github.com/CH4RL3I",
+      "homepage": null,
+      "language": null,
+      "topics": []
+    },
+    {
+      "id": "fitfit",
+      "name": "FITFIT",
+      "kind": "private",
+      "group": "product",
+      "pitch": "iOS app built on the iPhone's LiDAR scanner.",
+      "headline": "",
+      "stack": [
+        "iOS",
+        "LiDAR"
+      ],
+      "url": "https://github.com/CH4RL3I",
+      "homepage": null,
+      "language": null,
+      "topics": []
+    },
+    {
+      "id": "ironman-trainer",
+      "name": "Ironman Trainer",
+      "kind": "private",
+      "group": "product",
+      "pitch": "Personal AI coach that syncs his Garmin data and plans triathlon training.",
+      "headline": "",
+      "stack": [
+        "Garmin sync",
+        "AI coach"
+      ],
+      "url": "https://github.com/CH4RL3I",
+      "homepage": null,
+      "language": null,
+      "topics": []
+    }
+  ]
+}

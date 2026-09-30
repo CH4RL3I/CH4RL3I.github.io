@@ -1,0 +1,12 @@
+{
+  "name": "Apto",
+  "description": "Prove yourself, and jobs apply to you: students solve real work samples from startups. Built at START Unicorn Lisbon hackathon.",
+  "language": "TypeScript",
+  "homepage": "https://apto-azure.vercel.app",
+  "topics": [
+    "hackathon",
+    "nextjs",
+    "supabase"
+  ],
+  "html_url": "https://github.com/CH4RL3I/Apto"
+}

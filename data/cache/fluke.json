@@ -1,0 +1,14 @@
+{
+  "name": "fluke",
+  "description": "Is your best backtest real? Probability of Backtest Overfitting (CSCV) and Deflated Sharpe Ratio after López de Prado.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "backtesting",
+    "overfitting",
+    "python",
+    "quant-finance",
+    "sharpe-ratio"
+  ],
+  "html_url": "https://github.com/CH4RL3I/fluke"
+}
