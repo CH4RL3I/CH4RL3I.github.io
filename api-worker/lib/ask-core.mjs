@@ -15,7 +15,7 @@ export const LIMITS = {
 export const JEV_URL = 'https://openrouter.ai/api/alpha/decisions';
 export const JEV_MODEL = 'typesafe/jev-1.13';
 
-const ALLOWED = [/^https:\/\/gappa\.me$/, /^http:\/\/localhost(:\d+)?$/];
+const ALLOWED = [/^https?:\/\/gappa\.me$/, /^http:\/\/localhost(:\d+)?$/];
 export const originAllowed = (o) => !!o && ALLOWED.some((re) => re.test(o));
 
 export function corsHeaders(origin) {

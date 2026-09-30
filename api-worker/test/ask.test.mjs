@@ -56,9 +56,10 @@ test('validation', async () => {
 
 test('CORS: only gappa.me and localhost', async () => {
   assert.ok(originAllowed('https://gappa.me'));
+  assert.ok(originAllowed('http://gappa.me'));
   assert.ok(originAllowed('http://localhost:8080'));
   assert.ok(originAllowed('http://localhost'));
-  for (const o of ['https://evil.com', 'http://gappa.me', 'https://gappa.me.evil.com', 'http://localhost.evil.com', 'https://www.gappa.me', undefined, 'null']) assert.ok(!originAllowed(o), String(o));
+  for (const o of ['https://evil.com', 'https://gappa.me.evil.com', 'http://localhost.evil.com', 'https://www.gappa.me', undefined, 'null']) assert.ok(!originAllowed(o), String(o));
   assert.equal(corsHeaders('https://evil.com')['Access-Control-Allow-Origin'], undefined);
   const ok = await handleAsk(post({ question: 'touchdown' }, { origin: 'http://localhost:5173' }), mk());
   assert.equal(ok.headers['Access-Control-Allow-Origin'], 'http://localhost:5173');
