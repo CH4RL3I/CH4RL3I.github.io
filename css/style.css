@@ -174,7 +174,7 @@ a.pnote { color: var(--blue); }
   body { font-size: 16.5px; }
   .term { box-shadow: 4px 4px 0 var(--ink); font-size: 13px; }
   .term-hint { display: none; }
-  .term-body { height: clamp(340px, 62vh, 520px); padding: 12px 12px 8px; }
+  .term-body { height: auto; min-height: 200px; max-height: 62vh; padding: 12px 12px 8px; }
   .kv { grid-template-columns: 1fr; }
   .kv > dd { margin-bottom: 4px; }
   .cmds { grid-template-columns: 1fr; row-gap: 0; }

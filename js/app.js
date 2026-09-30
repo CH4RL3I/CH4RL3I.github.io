@@ -187,7 +187,7 @@ function unknownProject(cmd, arg) {
 }
 
 // ---------- ask ----------
-const EXAMPLES = ['what has he built with Swift?', 'how does touchdown estimate pose?', 'has he shipped anything to production?'];
+const EXAMPLES = ['what has he built with computer vision?', 'how does touchdown estimate pose?', 'has he shipped anything to production?'];
 
 function excerpt(text, terms, n = 300) {
   const flat = text.replace(/\s*\n\s*/g, ' ').trim();
