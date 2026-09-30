@@ -12,7 +12,7 @@
     "alpha-graveyard":    { "headline": "15,000 candidate strategies, 0 survive the held-out decade.", "stack": ["Python", "genetic search"], "group": "research" },
     "blind-committee":    { "headline": "Does not beat equal weight, and says so.", "stack": ["Python", "LLM agents", "Anthropic API", "XBRL"], "group": "research" },
     "touchdown":          { "headline": "86/100 simulated landings, median error 9.9 cm, ~370 fps on a laptop CPU.", "stack": ["Python", "OpenCV", "PnP", "Kalman filter"], "group": "research" },
-    "Apto":               { "headline": "Built at the START Unicorn Lisbon hackathon. Live.", "stack": ["Next.js", "React", "TypeScript", "Tailwind", "Supabase", "Vercel"], "group": "product", "homepage": "https://apto-azure.vercel.app" }
+    "Apto":               { "headline": "Live demo online.", "stack": ["Next.js", "React", "TypeScript", "Tailwind", "Supabase", "Vercel"], "group": "product", "homepage": "https://apto-azure.vercel.app" }
   },
   "private": {
     "immoapp":     { "name": "ImmoApp",                  "headline": "In beta on TestFlight.",        "stack": ["iOS", "API"] },
