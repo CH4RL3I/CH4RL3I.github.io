@@ -1,0 +1,16 @@
+{
+  "name": "mood-weighted",
+  "description": "News sentiment as Black-Litterman views, tested out of sample: the information coefficient is about zero and it trails equal weight after costs.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "black-litterman",
+    "finbert",
+    "nlp",
+    "portfolio-optimization",
+    "python",
+    "quant-finance",
+    "sentiment-analysis"
+  ],
+  "html_url": "https://github.com/CH4RL3I/mood-weighted"
+}

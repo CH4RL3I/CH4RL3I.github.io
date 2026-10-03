@@ -269,7 +269,7 @@
       ],
       "url": "https://github.com/CH4RL3I/emberwatch",
       "homepage": null,
-      "language": null,
+      "language": "Python",
       "topics": [
         "alerting",
         "computer-vision",
@@ -278,6 +278,32 @@
         "python",
         "pytorch",
         "safety"
+      ]
+    },
+    {
+      "id": "mood-weighted",
+      "name": "mood-weighted",
+      "kind": "public",
+      "group": "research",
+      "pitch": "News sentiment as Black-Litterman views, tested out of sample: the information coefficient is about zero and it trails equal weight after costs.",
+      "headline": "Monthly IC −0.008 (t = −0.29); after costs it trails equal weight.",
+      "stack": [
+        "Python",
+        "FinBERT",
+        "pandas",
+        "SciPy"
+      ],
+      "url": "https://github.com/CH4RL3I/mood-weighted",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "black-litterman",
+        "finbert",
+        "nlp",
+        "portfolio-optimization",
+        "python",
+        "quant-finance",
+        "sentiment-analysis"
       ]
     },
     {

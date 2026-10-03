@@ -1,7 +1,7 @@
 {
   "name": "emberwatch",
   "description": "Fire and smoke detection with temporal alerting, evaluated on false alarms as much as recall. A portfolio project, not a certified safety device.",
-  "language": null,
+  "language": "Python",
   "homepage": null,
   "topics": [
     "alerting",

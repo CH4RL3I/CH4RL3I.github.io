@@ -13,7 +13,8 @@
     "touchdown",
     "Apto",
     "hivemap",
-    "emberwatch"
+    "emberwatch",
+    "mood-weighted"
   ],
   "meta": {
     "fearcurve": {
@@ -125,6 +126,16 @@
         "OpenCV"
       ],
       "group": "vision"
+    },
+    "mood-weighted": {
+      "headline": "Monthly IC −0.008 (t = −0.29); after costs it trails equal weight.",
+      "stack": [
+        "Python",
+        "FinBERT",
+        "pandas",
+        "SciPy"
+      ],
+      "group": "research"
     }
   },
   "private": {
