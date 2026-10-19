@@ -1,4 +1,5 @@
 import { search } from './bm25.mjs';
+import { track } from './analytics.js';
 
 // Set after the `gappa-ask` Vercel project is deployed, e.g. 'https://gappa-ask.vercel.app/api/ask'.
 // While empty, `ask` goes straight to the local BM25 fallback.
@@ -248,6 +249,7 @@ async function ask(arg) {
     return;
   }
   if (question.length > 300) return row(span('sig', 'Questions are capped at 300 characters.'));
+  track('ask', { question });
   if (!(await load())) return row(span('sig', 'The search index could not be loaded. Try ls, or use the project list below.'));
   const hits = search(index, question, 6);
   const terms = question.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2);
@@ -302,6 +304,7 @@ async function exec(line, echo) {
   if (echo) { const r = el('div', 'row echo'); r.append(span('ps1', '$ '), document.createTextNode(t)); log.append(r); toBottom(); }
   if (!t) return;
   const [name, arg] = parse(t);
+  track('command', { name: name.slice(0, 32) });
   if (/^rm\s+-rf?\s+\/?/.test(t)) return row('rm: / is not mine to delete. ', span('dim', 'Try '), cmdLink('ls', 'ls'), span('dim', '.'));
   if (name === 'ask') return ask(arg);
   if (name === 'ls' || name === 'dir') return cmds.ls();
