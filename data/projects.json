@@ -307,6 +307,67 @@
       ]
     },
     {
+      "id": "cct",
+      "name": "cct",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Keep many Claude Code sessions organised by project in tmux: survive closed windows and reboots, and put idle sessions to sleep.",
+      "headline": "",
+      "stack": [
+        "Python"
+      ],
+      "url": "https://github.com/CH4RL3I/cct",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "claude-code",
+        "cli",
+        "developer-tools",
+        "ghostty",
+        "tmux"
+      ]
+    },
+    {
+      "id": "agent-board",
+      "name": "agent-board",
+      "kind": "public",
+      "group": "research",
+      "pitch": "A Claude Code mod: animated pixel agents above the prompt for your subagents, teammates and other sessions.",
+      "headline": "",
+      "stack": [
+        "TypeScript"
+      ],
+      "url": "https://github.com/CH4RL3I/agent-board",
+      "homepage": null,
+      "language": "TypeScript",
+      "topics": [
+        "agents",
+        "claude-code",
+        "claude-code-mod",
+        "tui"
+      ]
+    },
+    {
+      "id": "claude-code-kit",
+      "name": "claude-code-kit",
+      "kind": "public",
+      "group": "research",
+      "pitch": "Eight small Claude Code plugins: owner's-words hook, hidden acceptance tests (holdouts), worktree cleanup, memory prompt router, MCP health check and more.",
+      "headline": "",
+      "stack": [
+        "Python"
+      ],
+      "url": "https://github.com/CH4RL3I/claude-code-kit",
+      "homepage": null,
+      "language": "Python",
+      "topics": [
+        "agents",
+        "claude-code",
+        "claude-code-plugins",
+        "hooks"
+      ]
+    },
+    {
       "id": "immoapp",
       "name": "ImmoApp",
       "kind": "private",

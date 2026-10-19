@@ -1,0 +1,13 @@
+{
+  "name": "agent-board",
+  "description": "A Claude Code mod: animated pixel agents above the prompt for your subagents, teammates and other sessions.",
+  "language": "TypeScript",
+  "homepage": null,
+  "topics": [
+    "agents",
+    "claude-code",
+    "claude-code-mod",
+    "tui"
+  ],
+  "html_url": "https://github.com/CH4RL3I/agent-board"
+}

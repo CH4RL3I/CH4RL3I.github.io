@@ -14,7 +14,10 @@
     "Apto",
     "hivemap",
     "emberwatch",
-    "mood-weighted"
+    "mood-weighted",
+    "cct",
+    "agent-board",
+    "claude-code-kit"
   ],
   "meta": {
     "fearcurve": {

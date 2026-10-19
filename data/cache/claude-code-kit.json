@@ -1,0 +1,13 @@
+{
+  "name": "claude-code-kit",
+  "description": "Eight small Claude Code plugins: owner's-words hook, hidden acceptance tests (holdouts), worktree cleanup, memory prompt router, MCP health check and more.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "agents",
+    "claude-code",
+    "claude-code-plugins",
+    "hooks"
+  ],
+  "html_url": "https://github.com/CH4RL3I/claude-code-kit"
+}

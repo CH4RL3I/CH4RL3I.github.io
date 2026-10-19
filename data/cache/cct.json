@@ -1,0 +1,14 @@
+{
+  "name": "cct",
+  "description": "Keep many Claude Code sessions organised by project in tmux: survive closed windows and reboots, and put idle sessions to sleep.",
+  "language": "Python",
+  "homepage": null,
+  "topics": [
+    "claude-code",
+    "cli",
+    "developer-tools",
+    "ghostty",
+    "tmux"
+  ],
+  "html_url": "https://github.com/CH4RL3I/cct"
+}
