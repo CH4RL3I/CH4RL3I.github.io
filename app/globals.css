@@ -149,11 +149,12 @@ html[data-loader="on"] .page {
 }
 
 /* Section reveal on scroll: opacity + blur only, so reduced motion keeps a gentle fade. */
-.reveal { opacity: 0; filter: blur(8px); transform: translateY(16px); transition: opacity 700ms var(--ease-out), filter 700ms var(--ease-out), transform 700ms var(--ease-out); }
-.reveal[data-shown="true"] { opacity: 1; filter: none; transform: none; }
-html:not(.js) .reveal { opacity: 1; filter: none; transform: none; }
+/* Hidden only once the Reveal script runs (.reveal-ready), so blocked JS never leaves sections invisible. */
+.reveal { transition: opacity 700ms var(--ease-out), filter 700ms var(--ease-out), transform 700ms var(--ease-out); }
+html.reveal-ready .reveal:not([data-shown="true"]) { opacity: 0; filter: blur(8px); transform: translateY(16px); }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { transform: none; filter: none; transition: opacity 300ms ease; }
+  .reveal { transition: opacity 300ms ease; }
+  html.reveal-ready .reveal:not([data-shown="true"]) { transform: none; filter: none; }
 }
 
 .sr-only-focusable:not(:focus):not(:focus-within) {

@@ -124,7 +124,7 @@ export function Ask() {
               maxLength={MAX_QUESTION}
               enterKeyHint="send"
               autoComplete="off"
-              placeholder={site.ask.examples[0] ?? 'Ask about a project'}
+              placeholder="Ask about a project or a result"
               className="min-w-0 flex-1 bg-transparent py-2 text-base text-text outline-none placeholder:text-muted/70 md:text-sm"
             />
             {q.length > MAX_QUESTION - 50 && (

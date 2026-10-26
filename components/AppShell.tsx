@@ -6,6 +6,8 @@ import { Loader } from './Loader';
 import { TerminalHost } from './TerminalHost';
 
 type Phase = 'unknown' | 'loading' | 'done';
+/** Just before the fail-safe in globals.css (5 s for the hero, 6 s for the page) shows content anyway. */
+const LATE_MS = 4500;
 const IntroContext = createContext<boolean>(false);
 
 /** True once the intro loader is gone (or was skipped); the hero entrance waits for it. */
@@ -16,7 +18,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   // The head script already decided; read its verdict before the first client paint.
   useLayoutEffect(() => {
-    setPhase(document.documentElement.getAttribute('data-loader') === 'on' ? 'loading' : 'done');
+    const html = document.documentElement;
+    // Hydration this late means the CSS fail-safe has shown the page already; don't cover it again.
+    if (performance.now() > LATE_MS) {
+      html.classList.add('late');
+      html.setAttribute('data-loader', 'done');
+      setPhase('done');
+      return;
+    }
+    setPhase(html.getAttribute('data-loader') === 'on' ? 'loading' : 'done');
   }, []);
 
   const finish = useCallback(() => {

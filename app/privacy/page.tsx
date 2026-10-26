@@ -30,7 +30,8 @@ export default function Privacy() {
       </p>
       <p className="mt-4">
         Questions you ask go to a small server function on this site. It picks the matching passages from Emilio&apos;s public project write-ups and
-        sends your question with those passages to Google&apos;s Gemini API, which writes the answer. The site does not store your question.
+        sends your question with those passages to Google&apos;s Gemini API, which writes the answer. That server function does not store or log your
+        question; the analytics above record its text.
       </p>
 
       <H2>gog-cli (Google sign-in)</H2>

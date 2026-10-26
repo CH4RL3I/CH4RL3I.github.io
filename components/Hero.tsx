@@ -49,7 +49,7 @@ export function Hero() {
     () => {
       if (!introDone) return;
       const html = document.documentElement;
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || html.classList.contains('late')) {
         html.classList.add('hero-go');
         return;
       }

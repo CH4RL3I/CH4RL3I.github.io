@@ -20,6 +20,7 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    document.documentElement.classList.add('reveal-ready');
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {

@@ -121,6 +121,7 @@ for (const id of cfg.repos) {
   addChunk(id, 'Summary', `${id}: ${desc} ${head} Stack: ${(m.stack || []).join(', ')}.${topics ? ` Topics: ${topics}.` : ''}`.replace(/\s+/g, ' '), repoUrl, 'summary');
   for (const s of sections(r.readme)) {
     if (/^licen[sc]e$/i.test(s.heading)) continue;
+    if (/^(team|authors?|contributors?|credits|acknowledg(e)?ments?)$/i.test(s.heading)) continue; // other people's names
     const body = clean(s.body.join('\n'));
     const url = s.heading === 'Overview' ? repoUrl : `${repoUrl}#${ghSlug(s.heading)}`;
     const parts = pieces(body);

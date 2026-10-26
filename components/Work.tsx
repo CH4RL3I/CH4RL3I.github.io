@@ -26,9 +26,9 @@ function Card({ p, n }: { p: Project; n: number }) {
       <p className="mt-2 text-sm leading-relaxed text-muted">{p.what}</p>
 
       <div className="mt-8">
-        <p className="display flex items-center gap-3 text-5xl leading-none tracking-[-0.04em] text-text tabular-nums md:text-6xl">
+        <p className="display text-[2.75rem] leading-[0.95] tracking-[-0.04em] text-text tabular-nums sm:text-5xl md:text-6xl">
           {p.kind === 'product' && (
-            <span aria-hidden="true" className="inline-block h-2 w-2 shrink-0 rounded-full" style={{ background: 'var(--accent-grad)' }} />
+            <span aria-hidden="true" className="mr-3 inline-block h-2 w-2 -translate-y-[0.08em] rounded-full align-middle" style={{ background: 'var(--accent-grad)' }} />
           )}
           {p.figure}
         </p>

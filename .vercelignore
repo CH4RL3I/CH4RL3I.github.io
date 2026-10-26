@@ -1,0 +1,10 @@
+# Not part of the site build
+legacy/
+screenshots/
+.playwright-mcp/
+data/cache/
+docs/
+test/
+.next/
+node_modules/
+.env*

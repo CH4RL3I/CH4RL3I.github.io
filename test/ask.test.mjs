@@ -241,3 +241,45 @@ test('no question text is written to stdout or stderr', async () => {
   } finally { process.stdout.write = o; process.stderr.write = e; }
   assert.ok(!w.join('').includes('SECRET-QUESTION-TEXT'));
 });
+
+test('grouped citations like [3, 1] are split, checked and renumbered', async () => {
+  const r = await handleAsk(post({ question: 'touchdown landing pose' }), mk({
+    fetch: mockFetch({ reply: { on_topic: true, answerable: true, answer: 'Both say so [3, 1]. Unknown ones go [99, 0].', cited: [3, 1] } }),
+  }));
+  assert.equal(r.body.answer, 'Both say so [1][2]. Unknown ones go.');
+  assert.deepEqual(r.body.sources.map((s) => s.n), [1, 2]);
+  const u = await handleAsk(post({ question: 'touchdown' }), mk({
+    fetch: mockFetch({ reply: { on_topic: true, answerable: false, answer: 'Not stated [1, 2].', cited: [] } }),
+  }));
+  assert.equal(u.body.answer, 'Not stated.');
+});
+
+test('an answer that is empty after cleaning, or cites nothing valid, is not shown as answered', async () => {
+  const empty = await handleAsk(post({ question: 'touchdown' }), mk({
+    fetch: mockFetch({ reply: { on_topic: true, answerable: true, answer: '[99]', cited: [99] } }),
+  }));
+  assert.equal(empty.status, 200);
+  assert.equal(empty.body.answerable, false);
+  assert.ok(empty.body.answer.length > 0);
+  const uncited = await handleAsk(post({ question: 'touchdown' }), mk({
+    fetch: mockFetch({ reply: { on_topic: true, answerable: true, answer: 'Touchdown lands drones.', cited: [] } }),
+  }));
+  assert.equal(uncited.body.answerable, false);
+  assert.deepEqual(uncited.body.sources, []);
+});
+
+test('readBodyCapped: reads small bodies, stops at the cap, gives up on a stalled stream', async () => {
+  const { readBodyCapped } = await import('../lib/ask/core.mjs');
+  const enc = new TextEncoder();
+  const streamOf = (...parts) => new ReadableStream({ start(c) { parts.forEach((p) => c.enqueue(enc.encode(p))); c.close(); } });
+  assert.deepEqual(await readBodyCapped(streamOf('{"question":', '"hi"}'), 2048), { text: '{"question":"hi"}' });
+  let pulled = 0;
+  const endless = new ReadableStream({ pull(c) { pulled++; c.enqueue(new Uint8Array(1024)); } });
+  assert.deepEqual(await readBodyCapped(endless, 2048), { error: 'too-large' });
+  assert.ok(pulled <= 4, `read ${pulled} KB of an endless body`);
+  const stalled = new ReadableStream({ pull() { return new Promise(() => {}); } });
+  const t0 = Date.now();
+  assert.deepEqual(await readBodyCapped(stalled, 2048, 200), { error: 'timeout' });
+  assert.ok(Date.now() - t0 < 1000);
+  assert.deepEqual(await readBodyCapped(null), { text: '' });
+});

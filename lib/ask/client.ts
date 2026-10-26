@@ -70,18 +70,24 @@ type Index = { chunks: Chunk[] } & Record<string, unknown>;
 let indexP: Promise<Index | null> | null = null;
 
 export function loadIndex(): Promise<Index | null> {
-  indexP ??= fetch('/data/index.json')
+  indexP ??= fetch('/data/index.json', { signal: AbortSignal.timeout(8000) })
     .then((r) => (r.ok ? (r.json() as Promise<Index>) : null))
-    .catch(() => null);
+    .catch(() => null)
+    .then((i) => { if (!i) indexP = null; return i; }); // a failed load may be retried later
   return indexP;
 }
 
+/** Closest passages by local BM25. Always settles: null if the index or the ranker can't load. */
 export async function localPassages(question: string, k = 3): Promise<{ chunk: Chunk; score: number }[] | null> {
-  const [index, bm25] = await Promise.all([loadIndex(), import('@/lib/bm25.mjs')]);
-  if (!index) return null;
-  const hits = bm25.search(index, question, 6) as { chunk: Chunk; score: number }[];
-  if (!hits.length) return [];
-  return hits.filter((h) => h.score >= hits[0].score * 0.65).slice(0, k);
+  try {
+    const [index, bm25] = await Promise.all([loadIndex(), import('@/lib/bm25.mjs')]);
+    if (!index) return null;
+    const hits = bm25.search(index, question, 6) as { chunk: Chunk; score: number }[];
+    if (!hits.length) return [];
+    return hits.filter((h) => h.score >= hits[0].score * 0.65).slice(0, k);
+  } catch {
+    return null;
+  }
 }
 
 /** A readable window of a passage around the first matching term. */

@@ -15,15 +15,24 @@ export default function TerminalOverlay({ onClose }: { onClose: () => void }) {
     const html = document.documentElement;
     const overflow = html.style.overflow;
     html.style.overflow = 'hidden';
+    // The page behind the dialog can't be focused or clicked while it is open.
+    const page = document.querySelector<HTMLElement>('.page');
+    page?.setAttribute('inert', '');
     const unmount = mountTerminal(el, { onClose });
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.preventDefault(); onClose(); }
-      // Keep Tab inside the dialog.
-      if (e.key === 'Tab' && !el.contains(document.activeElement)) { e.preventDefault(); el.querySelector<HTMLInputElement>('.t-cmd')?.focus(); }
+      if (e.key === 'Escape') { e.preventDefault(); onClose(); return; }
+      if (e.key !== 'Tab') return;
+      const f = [...el.querySelectorAll<HTMLElement>('button, a[href], input')].filter((x) => x.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      const at = document.activeElement;
+      if (e.shiftKey && (at === first || !el.contains(at))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (at === last || !el.contains(at))) { e.preventDefault(); first.focus(); }
     };
     document.addEventListener('keydown', onKey);
     return () => {
       unmount();
+      page?.removeAttribute('inert');
       document.removeEventListener('keydown', onKey);
       html.style.overflow = overflow;
       before?.focus?.({ preventScroll: true });
