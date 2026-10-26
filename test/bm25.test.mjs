@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { buildIndex, search, tokenize } from '../js/bm25.mjs';
+import { buildIndex, search, tokenize } from '../lib/bm25.mjs';
 
 const toy = buildIndex([
   { id: 'a#1', repo: 'alpha', section: 'Results', text: 'The drone landing pipeline reaches 86 of 100 landings with a Kalman filter.' },
@@ -42,11 +42,17 @@ test('real index: known questions hit the right repo', () => {
   assert.ok(top('what has he built with Swift').includes('profile'));
   assert.ok(top('TestFlight beta iOS app landlords').includes('immoapp'));
 });
-test('api-worker ships the same index and bm25 as the site', () => {
+test('the browser gets the same index and project list as the server', () => {
   const r = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');
-  assert.equal(r('../api-worker/index.json'), r('../data/index.json'));
-  assert.equal(r('../api-worker/lib/bm25.mjs'), r('../js/bm25.mjs'));
+  assert.equal(r('../public/data/index.json'), r('../data/index.json'));
+  assert.deepEqual(JSON.parse(r('../public/data/projects.json')), JSON.parse(r('../data/projects.json')));
 });
-test('every chunk has repo, section, text, url anchor', () => {
-  for (const c of real.chunks) assert.ok(c.id && c.repo && c.section && c.text && /^https:\/\/github\.com\/CH4RL3I/.test(c.url), c.id);
+test('every chunk has repo, section, text and a link to his GitHub or this site', () => {
+  for (const c of real.chunks) assert.ok(c.id && c.repo && c.section && c.text && /^https:\/\/(github\.com\/CH4RL3I|gappa\.me\/)/.test(c.url), c.id);
+});
+test('the site texts are indexed, so ask can answer about work without a public README', () => {
+  const ids = new Set(real.chunks.map((c) => c.id));
+  assert.ok(ids.has('gappa.me#about'));
+  assert.ok([...ids].some((i) => i.startsWith('gappa.me#work-')));
+  assert.ok([...ids].some((i) => i.startsWith('gappa.me#resume-')));
 });

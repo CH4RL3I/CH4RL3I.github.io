@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "title": "Emilio Gappa",
+    "description": "Emilio Gappa builds AI systems and tests trading ideas against real data. Master in Management student in Lisbon, open to internships from January 2027."
+  },
+  "hero": {
+    "eyebrow": "Open to internships · Jan 2027",
+    "roles": [
+      {
+        "article": "A",
+        "word": "Builder"
+      },
+      {
+        "article": "An",
+        "word": "Analyst"
+      },
+      {
+        "article": "A",
+        "word": "Founder"
+      },
+      {
+        "article": "A",
+        "word": "Student"
+      }
+    ],
+    "place": "Lisbon",
+    "bio": "I build AI systems and test ideas against real data, then report what actually holds up."
+  },
+  "projects": [
+    {
+      "id": "gonder-platform",
+      "name": "Operations platform at Gonder",
+      "kind": "product",
+      "what": "An operations platform and a facility-management portal, built in-house at Gonder Group.",
+      "figure": "Live on Azure",
+      "figureCaption": "two apps in production",
+      "result": "Covers quoting, costing and fuel-card fraud checks for the fleet, plus a portal with AI contract extraction and 591 passing tests.",
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Entra ID",
+        "Azure"
+      ],
+      "links": [],
+      "note": "Employer work, private code. Walkthrough on request.",
+      "sources": [
+        "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
+        "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+      ]
+    },
+    {
+      "id": "immoapp",
+      "name": "ImmoApp",
+      "kind": "product",
+      "what": "Property-management software for German private landlords, built together with Jan.",
+      "figure": "Live",
+      "figureCaption": "in production · iOS beta on TestFlight",
+      "result": "Covers tax forms, utility-cost statements, rent indexation and bank reconciliation.",
+      "stack": [
+        "Next.js",
+        "Prisma",
+        "Expo",
+        "PostgreSQL"
+      ],
+      "links": [],
+      "note": "Private code. Walkthrough on request.",
+      "sources": [
+        "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
+        "docs/design-direction.md"
+      ]
+    },
+    {
+      "id": "co-driver",
+      "name": "Co-Driver",
+      "kind": "product",
+      "what": "A private AI assistant and personal CRM that triages messages, briefs before meetings and drafts replies.",
+      "figure": "TestFlight",
+      "figureCaption": "iOS app in internal testing",
+      "result": "It acts only after each action is approved and signed on the phone.",
+      "stack": [
+        "TypeScript",
+        "SwiftUI",
+        "Postgres",
+        "Claude API"
+      ],
+      "links": [],
+      "note": "Private code. Walkthrough on request.",
+      "sources": [
+        "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
+        "docs/design-direction.md"
+      ]
+    },
+    {
+      "id": "apto",
+      "name": "Apto",
+      "kind": "product",
+      "what": "A START Unicorn Lisbon hackathon app where students solve proctored company work samples and companies rank them.",
+      "figure": "Live demo",
+      "figureCaption": "Gemini scores each submission",
+      "result": "Built almost all of the app at the hackathon; the teammates led the pitch.",
+      "stack": [
+        "Next.js",
+        "Supabase",
+        "Gemini API",
+        "Vercel"
+      ],
+      "links": [
+        {
+          "label": "Live demo",
+          "href": "https://apto-azure.vercel.app"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/CH4RL3I/Apto"
+        }
+      ],
+      "sources": [
+        "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
+        "data/cache/Apto.md",
+        "docs/design-direction.md"
+      ]
+    },
+    {
+      "id": "alpha-graveyard",
+      "name": "alpha-graveyard",
+      "kind": "research",
+      "what": "Automated trading-strategy search, then a test of how many discoveries survive held-out data.",
+      "figure": "0 / 15,000",
+      "figureCaption": "strategies survived held-out data",
+      "result": "The best in-sample Sharpe ratio of 1.65 fell to -0.12 on held-out data, and no candidate passed the Deflated Sharpe test.",
+      "stack": [
+        "Python",
+        "Genetic search",
+        "Deflated Sharpe"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/CH4RL3I/alpha-graveyard"
+        }
+      ],
+      "sources": [
+        "data/cache/alpha-graveyard.md"
+      ]
+    },
+    {
+      "id": "footnote",
+      "name": "footnote",
+      "kind": "research",
+      "what": "Cited question answering over SEC 10-K filings, with a harness that measures how often it is right.",
+      "figure": "56% vs 92%",
+      "figureCaption": "answer accuracy: retrieved vs given passages",
+      "result": "Accuracy is 56% on retrieved passages and 92% when the right passages are given, so retrieval, not the model, is the bottleneck.",
+      "stack": [
+        "Python",
+        "Dense retrieval",
+        "XBRL",
+        "Ollama"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/CH4RL3I/footnote"
+        }
+      ],
+      "sources": [
+        "data/cache/footnote.md"
+      ]
+    },
+    {
+      "id": "blind-committee",
+      "name": "blind-committee",
+      "kind": "research",
+      "what": "LLM analyst agents, a portfolio manager and a code-based risk manager acting on anonymised evidence.",
+      "figure": "+41% vs +76%",
+      "figureCaption": "agent portfolio vs equal-weight return",
+      "result": "Agents returned +41.3% against +76.3% for equal weight, with a smaller drawdown (-9.2% vs -17.7%) and a Sharpe ratio not clearly different (1.54 vs 1.61).",
+      "stack": [
+        "Python",
+        "Ollama",
+        "pydantic",
+        "SEC XBRL"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/CH4RL3I/blind-committee"
+        }
+      ],
+      "sources": [
+        "data/cache/blind-committee.md"
+      ]
+    },
+    {
+      "id": "honest-odds",
+      "name": "honest-odds",
+      "kind": "research",
+      "what": "A calibration study of 2,946 resolved Polymarket markets, with a strict out-of-sample check.",
+      "figure": "0.999",
+      "figureCaption": "calibration slope at 30 days (1.0 is calibrated)",
+      "result": "Prices are close to calibrated. A recalibration strategy had a positive point estimate, but every confidence interval after costs includes zero.",
+      "stack": [
+        "Python",
+        "Polymarket data",
+        "Statistics"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/CH4RL3I/honest-odds"
+        }
+      ],
+      "sources": [
+        "data/cache/honest-odds.md"
+      ]
+    }
+  ],
+  "moreLink": {
+    "label": "All public repos on GitHub",
+    "href": "https://github.com/CH4RL3I"
+  },
+  "resume": {
+    "work": [
+      {
+        "start": "Jun 2026",
+        "end": "Present",
+        "org": "Gonder Group",
+        "role": "Working Student, CEO Office, AI & Process Automation",
+        "place": "Frankfurt, Germany",
+        "line": "Intern until Oct 2026. Built an operations platform and a facility-management portal, both in production on Microsoft Azure.",
+        "current": true,
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt",
+          "/Users/emiliogappa/.claude/projects/-Users-emiliogappa/memory/user_cv_facts.md"
+        ]
+      },
+      {
+        "start": "Jun 2026",
+        "end": "Present",
+        "org": "Freelance",
+        "role": "AI Agents & Web Applications",
+        "place": "Self-employed",
+        "line": "Connecto / HyCharge finance back-office, Rancyne website and portal, and a Microsoft 365 knowledge agent for a client.",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      },
+      {
+        "start": "Nov 2025",
+        "end": "Feb 2026",
+        "org": "Proaping Bicycles GmbH",
+        "role": "Forensic Audit & Controlling (Freelance)",
+        "place": "Germany",
+        "line": "Reconstructed the transaction history from accounting records and bank statements and documented it in workpapers for management.",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      },
+      {
+        "start": "Jul 2025",
+        "end": "Nov 2025",
+        "org": "ATLAS Vertriebsservice GmbH (DVAG Group)",
+        "role": "Intern, CRM Analytics, Client & Portfolio Management",
+        "place": "Frankfurt, Germany",
+        "line": "Moved recurring management reporting from Excel to Salesforce CRM Analytics, cutting manual reporting effort by about 40%.",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      },
+      {
+        "start": "Mar 2024",
+        "end": "Jun 2024",
+        "org": "Ideal Standard International",
+        "role": "Intern, CRM & Sales Analytics (Project Studies)",
+        "place": "Brussels, Belgium",
+        "line": "Built Salesforce and Excel dashboards for pipeline efficiency and client segmentation in an international B2B setting.",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "start": "Jan 2026",
+        "end": "May 2027",
+        "org": "NOVA School of Business and Economics",
+        "role": "Master in Management, Finance Track",
+        "place": "Lisbon, Portugal",
+        "line": "In progress, expected May 2027. Built a Black-Scholes option pricing model in Python.",
+        "current": true,
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      },
+      {
+        "start": "Oct 2021",
+        "end": "Mar 2025",
+        "org": "Technical University of Munich (TUM)",
+        "role": "B.Sc. Management & Technology",
+        "place": "Munich, Germany",
+        "line": "Thesis: \"AI-based forecasting models and sentiment-aware algorithmic trading\".",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      },
+      {
+        "start": "Aug 2023",
+        "end": "Dec 2023",
+        "org": "Hawaii Pacific University",
+        "role": "Exchange Semester, International Business",
+        "place": "Honolulu, USA",
+        "line": "Exchange semester during the TUM degree.",
+        "sources": [
+          "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
+        ]
+      }
+    ]
+  },
+  "ask": {
+    "intro": "Ask anything about my projects, work or studies. The answer comes from the write-ups, with sources.",
+    "examples": [
+      "What did Emilio build at Gonder?",
+      "Do trading strategies found by search survive new data?",
+      "Why does retrieval limit answers over SEC filings?"
+    ],
+    "note": "Answers are written by Google Gemini from my public project write-ups and this page, and link their sources."
+  },
+  "sayHi": {
+    "headline": "Let's talk.",
+    "text": "I am available for internships from January 2027. The best way to reach me is LinkedIn; my code is on GitHub.",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/emilio-gappa-44448223a/"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/CH4RL3I"
+      }
+    ]
+  }
+}
