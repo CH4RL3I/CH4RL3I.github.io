@@ -283,3 +283,25 @@ test('readBodyCapped: reads small bodies, stops at the cap, gives up on a stalle
   assert.ok(Date.now() - t0 < 1000);
   assert.deepEqual(await readBodyCapped(null), { text: '' });
 });
+
+test('padded citation groups like [ 3, 1 ] and [ 2 ] are normalised too', async () => {
+  const r = await handleAsk(post({ question: 'touchdown landing pose' }), mk({
+    fetch: mockFetch({ reply: { on_topic: true, answerable: true, answer: 'One [ 3, 1 ]. Two [ 2 ]. Bogus [ 99, 0 ].', cited: [] } }),
+  }));
+  assert.equal(r.body.answer, 'One [1][2]. Two [3]. Bogus.');
+  assert.deepEqual(r.body.sources.map((s) => s.n), [1, 2, 3]);
+});
+
+test('a refused client never has its upload read: origin and rate limit come first', async () => {
+  let reads = 0;
+  const readBody = async () => { reads++; return { body: { question: 'touchdown' }, rawLength: 30 }; };
+  const d = mk({ limiter: createRateLimiter({ perMinute: 1, perHour: 10 }) });
+  const req = (o = {}) => ({ method: 'POST', origin: 'https://gappa.me', host: 'gappa.me', ip: '7.7.7.7', readBody, ...o });
+  assert.equal((await handleAsk(req(), d)).status, 200);
+  assert.equal(reads, 1);
+  assert.equal((await handleAsk(req(), d)).status, 429);
+  assert.equal((await handleAsk(req({ origin: 'https://evil.example' }), d)).status, 403);
+  assert.equal(reads, 1);
+  const big = await handleAsk(req({ ip: '6.6.6.6', readBody: async () => ({ body: undefined, rawLength: 99999 }) }), d);
+  assert.equal(big.status, 413);
+});

@@ -1,6 +1,6 @@
 // Thin Next.js adapter around lib/ask/core.mjs; all logic and tests live in the core.
 import index from '@/data/index.json';
-import { createRateLimiter, handleAsk, LIMITS, originAllowed, readBodyCapped } from '@/lib/ask/core.mjs';
+import { createRateLimiter, handleAsk, LIMITS, readBodyCapped } from '@/lib/ask/core.mjs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,29 +13,23 @@ async function run(request: Request): Promise<Response> {
   const ip = h.get('x-real-ip')?.trim() || h.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   const origin = h.get('origin') ?? undefined;
   const host = h.get('host') ?? undefined;
-  let body: string | undefined;
-  let rawLength = Number(h.get('content-length') ?? 0) || 0;
-  // Read the body only for allowed origins, and never more than the limit: a declared oversize body
-  // is refused unread, and a missing or lying content-length is caught while streaming.
-  if (request.method === 'POST' && originAllowed(origin, host) && rawLength <= LIMITS.maxBody) {
+  // handleAsk calls this only after the origin and rate checks. A declared oversize body is refused
+  // unread; a missing or lying content-length is caught while streaming.
+  const readBody = async () => {
+    const declared = Number(h.get('content-length') ?? 0) || 0;
+    if (declared > LIMITS.maxBody) return { body: undefined, rawLength: declared };
     const read = await readBodyCapped(request.body, LIMITS.maxBody);
-    if ('text' in read) {
-      body = read.text;
-      rawLength = new TextEncoder().encode(body).length;
-    } else if (read.error === 'too-large') {
-      rawLength = LIMITS.maxBody + 1;
-    } else {
-      body = ''; // timed out or broken upload: answered as invalid JSON
-    }
-  }
+    if ('text' in read) return { body: read.text, rawLength: new TextEncoder().encode(read.text).length };
+    if (read.error === 'too-large') return { body: undefined, rawLength: LIMITS.maxBody + 1 };
+    return { body: '', rawLength: 0 }; // timed out or broken upload: answered as invalid JSON
+  };
   const out = await handleAsk(
     {
       method: request.method,
       origin,
       host,
       ip,
-      body,
-      rawLength,
+      readBody,
     },
     {
       index,

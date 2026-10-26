@@ -77,8 +77,15 @@ export function loadIndex(): Promise<Index | null> {
   return indexP;
 }
 
-/** Closest passages by local BM25. Always settles: null if the index or the ranker can't load. */
-export async function localPassages(question: string, k = 3): Promise<{ chunk: Chunk; score: number }[] | null> {
+const FALLBACK_MS = 10_000;
+
+/** Closest passages by local BM25. Always settles within 10 s: null if the index or the ranker can't load. */
+export function localPassages(question: string, k = 3): Promise<{ chunk: Chunk; score: number }[] | null> {
+  const deadline = new Promise<null>((r) => setTimeout(() => r(null), FALLBACK_MS));
+  return Promise.race([rankLocally(question, k), deadline]);
+}
+
+async function rankLocally(question: string, k: number): Promise<{ chunk: Chunk; score: number }[] | null> {
   try {
     const [index, bm25] = await Promise.all([loadIndex(), import('@/lib/bm25.mjs')]);
     if (!index) return null;
