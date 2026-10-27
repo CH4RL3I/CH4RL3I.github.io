@@ -1,5 +1,5 @@
 import { About } from '@/components/About';
-import { DensitySurface } from '@/components/DensitySurface';
+import { MonteCarloNet } from '@/components/MonteCarloNet';
 import { AppShell } from '@/components/AppShell';
 import { Ask } from '@/components/Ask';
 import { Footer } from '@/components/Footer';
@@ -15,7 +15,7 @@ export default function Home() {
       <a href="#content" className="sr-only-focusable fixed left-4 top-4 z-[60] rounded-md bg-text px-4 py-2 text-sm font-medium text-bg">
         Skip to content
       </a>
-      <DensitySurface />
+      <MonteCarloNet />
       <Spotlight />
       <div className="relative z-10 mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-16 lg:px-24 lg:py-0">
         <div className="lg:flex lg:justify-between lg:gap-4">

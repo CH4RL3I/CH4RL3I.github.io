@@ -43,9 +43,7 @@ export function Sidebar() {
             <TerminalButton icon />
           </li>
         </ul>
-        <a href="https://github.com/CH4RL3I/fearcurve" target="_blank" rel="noopener" className="label mt-6 hidden transition-colors hover:text-text lg:inline-block">
-          Background: implied density surface, after fearcurve <span aria-hidden="true">↗</span>
-        </a>
+        <p className="label mt-6 hidden max-w-sm lg:block">Background: a neural network learning to reproduce a Monte Carlo simulation (a sketch)</p>
       </div>
     </header>
   );
