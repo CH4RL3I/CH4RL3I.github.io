@@ -1,5 +1,5 @@
 import { site } from '@/content/site';
-import { DensityField } from './DensityField';
+import { LinkIcon } from './Icons';
 import { RoleLine } from './RoleLine';
 import { SectionNav } from './SectionNav';
 import { TerminalButton } from './TerminalButton';
@@ -24,32 +24,28 @@ export function Sidebar() {
       </div>
 
       <div className="mt-8 lg:mt-0">
-        {/* Only where the column is tall enough; otherwise the links below would be pushed off screen. */}
-        <figure className="hidden lg:block lg:[@media(max-height:879px)]:hidden">
-          <div className="h-[132px] w-full max-w-[380px]">
-            <DensityField />
-          </div>
-          <figcaption className="mt-2">
-            <a href="https://github.com/CH4RL3I/fearcurve" target="_blank" rel="noopener" className="label transition-colors hover:text-text">
-              fig. 1 · implied density, after fearcurve <span aria-hidden="true">↗</span>
-            </a>
-          </figcaption>
-        </figure>
-        <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm" aria-label="Elsewhere">
+        <ul className="flex items-center gap-5" aria-label="Elsewhere">
           {sayHi.links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} target="_blank" rel="noopener" className="group inline-flex items-baseline font-medium text-text/90 transition-colors hover:text-accent">
-                {l.label}
-                <span aria-hidden="true" className="ml-1 inline-block transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                  ↗
-                </span>
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${l.label} (opens in a new tab)`}
+                title={l.label}
+                className="press block text-body hover:text-text"
+              >
+                <LinkIcon href={l.href} className="h-6 w-6" />
               </a>
             </li>
           ))}
           <li className="hidden lg:block">
-            <TerminalButton />
+            <TerminalButton icon />
           </li>
         </ul>
+        <a href="https://github.com/CH4RL3I/fearcurve" target="_blank" rel="noopener" className="label mt-6 hidden transition-colors hover:text-text lg:inline-block">
+          Background: implied density surface, after fearcurve <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </header>
   );

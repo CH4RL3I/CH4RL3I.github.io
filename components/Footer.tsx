@@ -4,8 +4,7 @@ export function Footer() {
   return (
     <footer className="max-w-md pb-16 text-sm text-muted sm:pb-0">
       <p className="leading-relaxed">
-        Built with Next.js and Tailwind CSS, deployed on Vercel. Set in Schibsted Grotesk, Inter and Martian Mono. The figure on the left is an animated sketch
-        after{' '}
+        Built with Next.js and Tailwind CSS, deployed on Vercel. Set in Schibsted Grotesk, Inter and Martian Mono. The background is an animated sketch after{' '}
         <a href="https://github.com/CH4RL3I/fearcurve" target="_blank" rel="noopener" className="font-medium text-body transition-colors hover:text-text">
           fearcurve
         </a>

@@ -1,4 +1,5 @@
 import { site, type Project } from '@/content/site';
+import { GitHubIcon, LinkIcon } from './Icons';
 import { Reveal } from './Reveal';
 import { SectionLabel } from './SectionLabel';
 import { Visual } from './Visual';
@@ -36,9 +37,10 @@ function Row({ p }: { p: Project }) {
             >
               {/* On desktop the title link covers the whole row. */}
               <span aria-hidden="true" className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-md md:-inset-x-6 md:-inset-y-4 lg:block" />
-              <span>
+              <span className="inline-flex items-center">
                 {p.name}
-                <Arrow />
+                {/* A repo link shows the GitHub mark; anything else (a live demo) the arrow. */}
+                {primary.href.includes('github.com') ? <GitHubIcon className="ml-2 h-4 w-4 opacity-70 transition-opacity group-hover/link:opacity-100" /> : <Arrow />}
               </span>
             </a>
           ) : (
@@ -50,9 +52,22 @@ function Row({ p }: { p: Project }) {
         {(rest.length > 0 || (!primary && p.note)) && (
           <p className="mt-2 text-sm">
             {rest.map((l) => (
-              <a key={l.href} href={l.href} target="_blank" rel="noopener" className="group/link relative z-20 mr-4 inline-flex items-baseline font-medium text-text/90 transition-colors hover:text-accent">
-                {l.label}
-                <Arrow />
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${p.name} on ${l.label}`}
+                title={l.label}
+                className="group/link press relative z-20 mr-4 inline-flex items-center gap-1.5 text-body hover:text-text"
+              >
+                <LinkIcon href={l.href} className="h-5 w-5" />
+                {!/github\.com|linkedin\.com/.test(l.href) && (
+                  <>
+                    {l.label}
+                    <Arrow />
+                  </>
+                )}
               </a>
             ))}
             {!primary && p.note && <span className="text-muted">{p.note}</span>}
@@ -84,7 +99,8 @@ export function Work() {
           </Reveal>
         ))}
       </ol>
-      <a href={site.moreLink.href} target="_blank" rel="noopener" className="group/link inline-flex items-baseline font-medium leading-tight text-text transition-colors hover:text-accent">
+      <a href={site.moreLink.href} target="_blank" rel="noopener" className="group/link inline-flex items-center gap-2 font-medium leading-tight text-text transition-colors hover:text-accent">
+        <GitHubIcon className="h-5 w-5" />
         {site.moreLink.label}
         <Arrow />
       </a>

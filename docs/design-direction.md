@@ -49,7 +49,8 @@ Each of the 8 projects is a row: a visual on the left (3 of 8 columns), then kin
 
 ## 5. Kept from revision 1
 
-- **The density animation after fearcurve**, now as a small figure in the left column above the links (desktop only), with its caption linking to the repo. Capped at 30 fps and 2× DPR, paused when hidden, one still frame under reduced motion.
+- **The density animation after fearcurve**, now as a faint 3D wireframe of the density surface (return × maturity × density) behind the whole page (27.10., at his request: "a subtle 3d animation in the background"). Hand-rolled projection on one canvas, no 3D library. The camera sways slowly and turns a little with the scroll. Capped at 30 fps and 1.5× DPR, paused when the tab is hidden, one still frame under reduced motion. A caption in the left column links to the repo.
+- **Links as icons** (27.10., his request): GitHub and LinkedIn marks in the left column and next to repo titles, a terminal icon for `/`. Say hi keeps icon plus label, because those are the main calls to action.
 - **The role line** "A Builder / An Analyst / A Founder / A Student based in Lisbon", in the role slot under the name.
 - **Resume** with Work and Education (including the Freelance row), **Ask my portfolio**, **Say hi** (LinkedIn first, GitHub second, no e-mail), the hidden terminal on `/`, the footer with Privacy.
 
