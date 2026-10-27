@@ -3,6 +3,19 @@
 
 export type Link = { label: string; href: string };
 
+/** The left-hand visual of a Work row. Chart numbers come from the project's own result files (see `sources`). */
+export type Visual =
+  | { type: 'status' }
+  | { type: 'image'; src: string; alt: string; width: number; height: number }
+  /** One line per strategy, from its discovery value to its held-out value. */
+  | { type: 'slope'; from: string; to: string; label: string; pairs: [number, number][] }
+  /** Vertical bars in percent. */
+  | { type: 'bars'; label: string; items: { label: string; value: number }[] }
+  /** Two series compared on a few metrics, in percent. */
+  | { type: 'paired'; label: string; series: [string, string]; rows: { label: string; values: [number, number] }[] }
+  /** Point estimates with standard errors, drawn as 95% intervals around a reference value. */
+  | { type: 'interval'; label: string; ref: number; refLabel: string; items: { label: string; value: number; se: number }[] };
+
 export type Project = {
   id: string;
   name: string;
@@ -21,6 +34,7 @@ export type Project = {
   links: Link[];
   /** For example "Private code, walkthrough on request". */
   note?: string;
+  visual: Visual;
   /** Files each number comes from. Not rendered. */
   sources: string[];
 };
@@ -47,6 +61,8 @@ export type SiteContent = {
     place: string;
     bio: string;
   };
+  /** The opening of the right column. `intro` ends mid-sentence and `items` complete it. Both allow **bold** and [links](#anchor). */
+  about: { greeting: string; intro: string; items: string[]; sources: string[] };
   /** Exactly 8, in display order. */
   projects: Project[];
   moreLink: Link;

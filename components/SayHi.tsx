@@ -1,25 +1,27 @@
 import { site } from '@/content/site';
 import { Reveal } from './Reveal';
+import { SectionLabel } from './SectionLabel';
+import { Arrow } from './Work';
 
 export function SayHi() {
   const [primary, ...rest] = site.sayHi.links;
   return (
-    <section id="say-hi" aria-labelledby="say-hi-title" className="relative mx-auto max-w-4xl scroll-mt-24 px-4 py-32 text-center sm:px-6 md:py-48">
+    <section id="say-hi" aria-labelledby="say-hi-title" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-28 lg:scroll-mt-24">
+      <SectionLabel id="say-hi-title">Say hi</SectionLabel>
       <Reveal>
-        <p className="label mb-6">Say hi</p>
-        <h2 id="say-hi-title" className="display text-balance text-5xl leading-[0.95] tracking-[-0.045em] text-text md:text-8xl">
-          {site.sayHi.headline}
-        </h2>
-        <p className="mx-auto mt-8 max-w-md text-sm leading-relaxed text-muted md:text-base">{site.sayHi.text}</p>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        <p className="display text-4xl font-semibold tracking-[-0.03em] text-text sm:text-5xl">{site.sayHi.headline}</p>
+        <p className="mt-4 max-w-md leading-relaxed">{site.sayHi.text}</p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
           {primary && (
-            <a href={primary.href} target="_blank" rel="noopener" className="ring-accent press rounded-full bg-text px-8 py-4 text-sm text-bg hover:scale-105">
-              {primary.label} <span aria-hidden="true">↗</span>
+            <a href={primary.href} target="_blank" rel="noopener" className="group/link press inline-flex items-baseline rounded-md bg-text px-5 py-3 text-sm font-medium text-bg hover:bg-white">
+              {primary.label}
+              <Arrow />
             </a>
           )}
           {rest.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener" className="ring-accent press rounded-full border-2 border-stroke px-8 py-4 text-sm text-text hover:scale-105">
-              {l.label} <span aria-hidden="true">↗</span>
+            <a key={l.href} href={l.href} target="_blank" rel="noopener" className="group/link inline-flex items-baseline text-sm font-medium text-text transition-colors hover:text-accent">
+              {l.label}
+              <Arrow />
             </a>
           ))}
         </div>

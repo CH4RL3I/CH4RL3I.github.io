@@ -7,10 +7,10 @@ import { useEffect, useRef } from 'react';
  * log return, short maturities tall and narrow at the front, long ones flat at the back.
  * Each density is a two-normal mix with a left "crash" component; its weight (the fear)
  * drifts slowly and the wave travels back through the maturities. Painted back to front,
- * each curve filled with the background so nearer curves hide the ones behind.
+ * each curve erasing what lies below it so nearer curves hide the ones behind.
  */
 
-const N = 26; //            maturities
+const N = 20; //            maturities
 const M = 150; //           points per curve
 const X0 = -0.62, X1 = 0.46; // log-return range
 const VOL = 0.18;
@@ -79,14 +79,13 @@ export function DensityField({ className = '' }: { className?: string }) {
     const draw = (t: number) => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      const amp = Math.min(H * 0.3, W * 0.42);
-      const narrow = W < 640;
+      const amp = H * 0.5;
       for (let i = N - 1; i >= 0; i--) {
         const d = i / (N - 1);
-        const s = 1 - 0.45 * d;
-        const base = H * 0.9 - d * H * (narrow ? 0.34 : 0.42);
-        const cx = W * 0.5 + d * W * 0.07;
-        const span = W * (narrow ? 1.7 : 1.25) * s;
+        const s = 1 - 0.4 * d;
+        const base = H * 0.97 - d * H * 0.52;
+        const cx = W * 0.44 + d * W * 0.16;
+        const span = W * 1.05 * s;
         const peak = density(maturities[i], fearAt(t - i * LAG), buf);
         const h = amp * s * Math.pow(peak / peak0, 0.55);
         for (let j = 0; j < M; j++) {
@@ -94,22 +93,23 @@ export function DensityField({ className = '' }: { className?: string }) {
           py[j] = base - (buf[j] / peak) * h;
         }
         trace();
-        // Fill down to the bottom with the page colour so this curve hides the ones behind it.
+        // Erase everything below this curve, so it hides the ones behind it and the page shows through.
         ctx.lineTo(cx + span / 2, H);
         ctx.lineTo(cx - span / 2, H);
         ctx.closePath();
-        ctx.fillStyle = '#0a0a0a';
+        ctx.globalCompositeOperation = 'destination-out';
         ctx.fill();
+        ctx.globalCompositeOperation = 'source-over';
         if (i === ACCENT_I) {
           const g = ctx.createLinearGradient(cx - span / 2, 0, cx + span / 2, 0);
           g.addColorStop(0, 'rgba(137,170,204,0)');
-          g.addColorStop(0.3, 'rgba(137,170,204,0.55)');
-          g.addColorStop(0.7, 'rgba(78,133,191,0.55)');
+          g.addColorStop(0.3, 'rgba(137,170,204,0.8)');
+          g.addColorStop(0.7, 'rgba(78,133,191,0.8)');
           g.addColorStop(1, 'rgba(78,133,191,0)');
           ctx.strokeStyle = g;
           ctx.lineWidth = 1.25;
         } else {
-          ctx.strokeStyle = `rgba(245,245,245,${(0.045 + 0.1 * (1 - d)).toFixed(3)})`;
+          ctx.strokeStyle = `rgba(230,235,242,${(0.06 + 0.16 * (1 - d)).toFixed(3)})`;
           ctx.lineWidth = 1;
         }
         // Stroke only the curve itself, not the closing edges of the fill.

@@ -2,6 +2,8 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // `next dev` would otherwise write an AGENTS.md into this public repo.
+  agentRules: false,
   // A stray lockfile in the home folder would otherwise be taken as the workspace root.
   turbopack: { root: process.cwd() },
   // No next/image on this site; switching the optimiser off removes its endpoint entirely.

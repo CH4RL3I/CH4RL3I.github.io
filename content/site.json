@@ -26,6 +26,21 @@
     "place": "Lisbon",
     "bio": "I build AI systems and test ideas against real data, then report what actually holds up."
   },
+  "about": {
+    "greeting": "Hi, I'm Emilio.",
+    "intro": "I'm a working student in the CEO office at Gonder Group and a Master in Management student at NOVA SBE in Lisbon. Besides that, I",
+    "items": [
+      "**Build products:** an [operations platform](#work-gonder-platform) at Gonder, [ImmoApp](#work-immoapp) together with Jan, the AI assistant [Co-Driver](#work-co-driver), and [Apto](#work-apto) at a hackathon.",
+      "**Test ideas against held-out data** and publish what fails too: none of the [15,000 candidate trading strategies](#work-alpha-graveyard) my search produced survived.",
+      "**Freelance** on AI agents and web apps for Connecto / HyCharge, Rancyne and a Microsoft 365 client.",
+      "**Look for an internship** from January 2027. [Say hi](#say-hi)."
+    ],
+    "sources": [
+      "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt",
+      "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
+      "data/cache/alpha-graveyard.md"
+    ]
+  },
   "projects": [
     {
       "id": "gonder-platform",
@@ -44,6 +59,9 @@
       ],
       "links": [],
       "note": "Employer work, private code. Walkthrough on request.",
+      "visual": {
+        "type": "status"
+      },
       "sources": [
         "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
         "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt"
@@ -65,6 +83,9 @@
       ],
       "links": [],
       "note": "Private code. Walkthrough on request.",
+      "visual": {
+        "type": "status"
+      },
       "sources": [
         "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
         "docs/design-direction.md"
@@ -86,6 +107,9 @@
       ],
       "links": [],
       "note": "Private code. Walkthrough on request.",
+      "visual": {
+        "type": "status"
+      },
       "sources": [
         "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
         "docs/design-direction.md"
@@ -115,10 +139,18 @@
           "href": "https://github.com/CH4RL3I/Apto"
         }
       ],
+      "visual": {
+        "type": "image",
+        "src": "/work/apto.webp",
+        "alt": "Apto landing page with a mock student dashboard",
+        "width": 960,
+        "height": 600
+      },
       "sources": [
         "/Users/emiliogappa/.local/state/uebergabe/cv-projekte-2026-10-26.md",
         "data/cache/Apto.md",
-        "docs/design-direction.md"
+        "docs/design-direction.md",
+        "CH4RL3I/Apto: docs/landing.png"
       ]
     },
     {
@@ -140,8 +172,57 @@
           "href": "https://github.com/CH4RL3I/alpha-graveyard"
         }
       ],
+      "visual": {
+        "type": "slope",
+        "from": "Discovery",
+        "to": "Held-out",
+        "label": "Sharpe, top 10",
+        "pairs": [
+          [
+            1.6472,
+            -0.1188
+          ],
+          [
+            1.4947,
+            0.0231
+          ],
+          [
+            1.4858,
+            0.2013
+          ],
+          [
+            1.4686,
+            0.0866
+          ],
+          [
+            1.4576,
+            -0.0921
+          ],
+          [
+            1.4464,
+            -0.1755
+          ],
+          [
+            1.3729,
+            -0.1798
+          ],
+          [
+            1.3714,
+            0.0583
+          ],
+          [
+            1.3679,
+            -0.1626
+          ],
+          [
+            1.3676,
+            0.1986
+          ]
+        ]
+      },
       "sources": [
-        "data/cache/alpha-graveyard.md"
+        "data/cache/alpha-graveyard.md",
+        "CH4RL3I/alpha-graveyard: results/top_strategies.csv"
       ]
     },
     {
@@ -164,8 +245,23 @@
           "href": "https://github.com/CH4RL3I/footnote"
         }
       ],
+      "visual": {
+        "type": "bars",
+        "label": "Answer accuracy",
+        "items": [
+          {
+            "label": "Retrieved",
+            "value": 56.25
+          },
+          {
+            "label": "Given",
+            "value": 92.19
+          }
+        ]
+      },
       "sources": [
-        "data/cache/footnote.md"
+        "data/cache/footnote.md",
+        "CH4RL3I/footnote: docs/results.json"
       ]
     },
     {
@@ -188,8 +284,33 @@
           "href": "https://github.com/CH4RL3I/blind-committee"
         }
       ],
+      "visual": {
+        "type": "paired",
+        "label": "Return and max drawdown",
+        "series": [
+          "Agents",
+          "Equal weight"
+        ],
+        "rows": [
+          {
+            "label": "Return",
+            "values": [
+              41.3,
+              76.3
+            ]
+          },
+          {
+            "label": "Max drawdown",
+            "values": [
+              -9.2,
+              -17.7
+            ]
+          }
+        ]
+      },
       "sources": [
-        "data/cache/blind-committee.md"
+        "data/cache/blind-committee.md",
+        "CH4RL3I/blind-committee: results/run/summary.json"
       ]
     },
     {
@@ -211,8 +332,32 @@
           "href": "https://github.com/CH4RL3I/honest-odds"
         }
       ],
+      "visual": {
+        "type": "interval",
+        "label": "Calibration slope, 95% CI",
+        "ref": 1,
+        "refLabel": "calibrated",
+        "items": [
+          {
+            "label": "30 days",
+            "value": 0.999,
+            "se": 0.04
+          },
+          {
+            "label": "7 days",
+            "value": 1.091,
+            "se": 0.044
+          },
+          {
+            "label": "1 day",
+            "value": 1.112,
+            "se": 0.045
+          }
+        ]
+      },
       "sources": [
-        "data/cache/honest-odds.md"
+        "data/cache/honest-odds.md",
+        "CH4RL3I/honest-odds: README.md (calibration table)"
       ]
     }
   ],

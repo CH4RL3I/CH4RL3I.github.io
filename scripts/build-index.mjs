@@ -170,7 +170,9 @@ if (existsSync(sitePath)) {
   const site = JSON.parse(readFileSync(sitePath, 'utf8'));
   const home = 'https://gappa.me/';
   const slug = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  addChunk('gappa.me', 'About', `Emilio Gappa, based in ${site.hero.place}. ${site.hero.eyebrow}. ${site.hero.bio}`, home, 'about');
+  const plain = (x) => x.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]+\)/g, '$1');
+  const about = site.about ? ` ${site.about.intro} ${site.about.items.map((i) => plain(i).replace(/^./, (c) => c.toLowerCase())).join(' I ')}` : '';
+  addChunk('gappa.me', 'About', `Emilio Gappa, based in ${site.hero.place}. ${site.hero.eyebrow}. ${site.hero.bio}${about}`, home, 'about');
   for (const pj of site.projects) {
     const text = `${pj.name} (${pj.kind}): ${pj.what} ${pj.figure}: ${pj.figureCaption}. ${pj.result} Stack: ${pj.stack.join(', ')}.${pj.note ? ` ${pj.note}.` : ''}`;
     addChunk('gappa.me', `Work: ${pj.name}`, text, `${home}#work`, `work-${slug(pj.id)}`);

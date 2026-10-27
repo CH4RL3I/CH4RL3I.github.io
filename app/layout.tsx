@@ -18,28 +18,21 @@ export const metadata: Metadata = {
     url: 'https://gappa.me/',
     siteName: 'gappa.me',
     type: 'website',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Emilio Gappa: a builder based in Lisbon' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Emilio Gappa: builder and analyst based in Lisbon' }],
   },
   twitter: { card: 'summary_large_image', title: site.meta.title, description: site.meta.description, images: ['/og.png'] },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a0a0a',
+  themeColor: '#0b111b',
   colorScheme: 'dark',
   viewportFit: 'cover',
 };
 
-// Runs before first paint. Marks JS as available and decides whether the intro loader plays:
-// only on the first visit of a browser session, never with reduced motion.
-const BOOT = `(function(){var d=document.documentElement;d.classList.add('js');try{if(!sessionStorage.getItem('gm-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.setAttribute('data-loader','on')}catch(e){}})();`;
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="dark" className={`${inter.variable} ${schibsted.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: BOOT }} />
-      </head>
-      <body className="bg-bg font-body text-text">
+      <body className="bg-bg font-body text-body">
         {children}
         <script type="module" src="/analytics.js" async />
       </body>

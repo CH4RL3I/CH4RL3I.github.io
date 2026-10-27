@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
-/* Dark only, no toggle (prompt 15). */
+/* Dark only, no toggle: deep blue ink with one accent (docs/design-direction.md, section 2). */
 :root {
-  --bg: #0a0a0a;
-  --surface: #141414;
-  --text: #f5f5f5;
-  --muted: #888888;
-  --accent: #f5f5f5;
-  --stroke: #1f1f1f;
+  --bg: #0b111b;
+  --surface: #111a27;
+  --surface-hover: rgba(30, 44, 64, 0.5);
+  --tile: #0f1724;
+  --text: #e6ebf2;
+  --body: #9aa6b8;
+  --muted: #6d7a8d;
+  --stroke: #1b2533;
+  --stroke-strong: #2a3748;
   --accent-a: #89aacc;
   --accent-b: #4e85bf;
   --accent-grad: linear-gradient(90deg, var(--accent-a) 0%, var(--accent-b) 100%);
+  --chip-bg: rgba(78, 133, 191, 0.12);
+  --chip-text: #a9c4e0;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   color-scheme: dark;
 }
@@ -18,10 +23,16 @@
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-tile: var(--tile);
   --color-text: var(--text);
+  --color-body: var(--body);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
   --color-stroke: var(--stroke);
+  --color-stroke-strong: var(--stroke-strong);
+  --color-accent: var(--accent-a);
+  --color-accent-b: var(--accent-b);
+  --color-chip: var(--chip-bg);
+  --color-chip-text: var(--chip-text);
   --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -44,94 +55,51 @@ html {
 }
 body {
   background: var(--bg);
-  color: var(--text);
+  color: var(--body);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 ::selection { background: color-mix(in srgb, var(--accent-b) 45%, transparent); color: var(--text); }
 
-:focus-visible { outline: 2px solid var(--accent-a); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent-a); outline-offset: 3px; border-radius: 2px; }
 
 /* In the components layer, so Tailwind utilities (tracking, colour) can still adjust them. */
 @layer components {
-  /* Small uppercase labels (eyebrows, dates, captions): the old site's mono. */
+  /* Small uppercase labels: dates, kinds, captions. */
   .label {
     font-family: var(--font-mono);
     font-size: 10.5px;
-    line-height: 1.4;
-    letter-spacing: 0.14em;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
   }
   /* Display type: Schibsted Grotesk, set tight. */
-  .display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.035em; }
+  .display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  /* Inline links in running text: bright, accent on hover. */
+  .link {
+    color: var(--text);
+    font-weight: 500;
+    transition: color 150ms ease;
+  }
+  .link:hover, .link:focus-visible { color: var(--accent-a); }
 }
 
-/* ---------- accent ring: a 1-2px gradient border that only shows on hover/focus ---------- */
-.ring-accent { position: relative; isolation: isolate; }
-.ring-accent::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: var(--ring-w, 1.5px);
-  border-radius: inherit;
-  background: var(--accent-grad);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 200ms ease;
-  pointer-events: none;
-}
-.ring-accent:focus-visible::before,
-.ring-accent:has(:focus-visible)::before,
-.ring-accent[data-ring="on"]::before { opacity: 1; }
-@media (hover: hover) and (pointer: fine) {
-  .ring-accent:hover::before { opacity: 1; }
-}
-
-/* Pressable things answer the press. This sits outside Tailwind's layers, so it owns the
-   transition of these elements: it covers press, hover scale and colour changes. */
+/* Pressable things answer the press. Outside Tailwind's layers, so it owns these elements' transitions. */
 .press {
-  transition-property: transform, scale, color, background-color, border-color, opacity;
+  transition-property: transform, color, background-color, border-color, opacity;
   transition-duration: 200ms;
   transition-timing-function: var(--ease-out);
 }
 .press:active { transform: scale(0.97); transition-duration: 120ms; }
 
-/* ---------- first-paint states ----------
-   The inline head script adds .js (and data-loader="on" on the first visit of a session).
-   Until the hero takes over (.hero-go), entrance elements stay hidden; if JS dies, a
-   fail-safe animation shows them anyway. */
-html.js:not(.hero-go) .name-reveal,
-html.js:not(.hero-go) .blur-in {
-  opacity: 0;
-  animation: failsafe-show 0.4s ease 5s forwards;
-}
-html[data-loader] .page { transition: opacity 500ms ease-out; }
-html[data-loader="on"] .page {
-  opacity: 0;
-  animation: failsafe-show 0.4s ease 6s forwards;
-}
-@keyframes failsafe-show { to { opacity: 1; } }
-
-/* Role word swap (prompt 15: animate-fade-in). */
+/* Role word swap. */
 @keyframes role-in {
-  from { opacity: 0; transform: translateY(0.25em); filter: blur(4px); }
+  from { opacity: 0; transform: translateY(0.25em); filter: blur(3px); }
   to { opacity: 1; transform: none; filter: none; }
 }
-.role-in { display: inline-block; animation: role-in 520ms var(--ease-out) both; }
-
-/* Scroll indicator dot. */
-@keyframes scroll-dot {
-  0% { transform: translateY(-4px); opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(40px); opacity: 0; }
-}
-.scroll-dot { animation: scroll-dot 1.5s ease-in-out infinite; }
+.role-in { display: inline-block; animation: role-in 480ms var(--ease-out) both; }
 
 /* Indeterminate progress bar under the ask input. */
 @keyframes ask-bar {
@@ -142,20 +110,49 @@ html[data-loader="on"] .page {
 
 @media (prefers-reduced-motion: reduce) {
   .role-in { animation: none; }
-  .scroll-dot { animation: none; opacity: 0.6; transform: translateY(18px); }
   .ask-bar { animation: none; transform: none; opacity: 0.6; }
-  html.js:not(.hero-go) .name-reveal,
-  html.js:not(.hero-go) .blur-in { opacity: 1; animation: none; }
 }
 
-/* Section reveal on scroll: opacity + blur only, so reduced motion keeps a gentle fade. */
-/* Hidden only once the Reveal script runs (.reveal-ready), so blocked JS never leaves sections invisible. */
-.reveal { transition: opacity 700ms var(--ease-out), filter 700ms var(--ease-out), transform 700ms var(--ease-out); }
-html.reveal-ready .reveal:not([data-shown="true"]) { opacity: 0; filter: blur(8px); transform: translateY(16px); }
+/* ---------- rows fade in once on scroll ----------
+   Hidden only once the Reveal script runs (.reveal-ready), so blocked JS never leaves rows invisible. */
+.reveal { transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
+html.reveal-ready .reveal:not([data-shown="true"]) { opacity: 0; transform: translateY(12px); }
+
+/* ---------- charts draw in when their row is revealed ---------- */
+.viz-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 800ms var(--ease-out);
+  transition-delay: calc(150ms + var(--i, 0) * 45ms);
+}
+.viz-grow {
+  transform-box: fill-box;
+  transform-origin: var(--origin, bottom);
+  transition: transform 700ms var(--ease-out);
+  transition-delay: calc(150ms + var(--i, 0) * 80ms);
+}
+.viz-fade { transition: opacity 400ms ease; transition-delay: calc(550ms + var(--i, 0) * 45ms); }
+html.reveal-ready .reveal:not([data-shown="true"]) .viz-draw { stroke-dashoffset: 1; }
+html.reveal-ready .reveal:not([data-shown="true"]) .viz-grow { transform: scale(var(--sx, 1), var(--sy, 0)); }
+html.reveal-ready .reveal:not([data-shown="true"]) .viz-fade { opacity: 0; }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { transition: opacity 300ms ease; }
-  html.reveal-ready .reveal:not([data-shown="true"]) { transform: none; filter: none; }
+  html.reveal-ready .reveal:not([data-shown="true"]) { transform: none; }
+  .viz-draw, .viz-grow, .viz-fade { transition: none; }
+  html.reveal-ready .reveal:not([data-shown="true"]) .viz-draw { stroke-dashoffset: 0; }
+  html.reveal-ready .reveal:not([data-shown="true"]) .viz-grow { transform: none; }
+  html.reveal-ready .reveal:not([data-shown="true"]) .viz-fade { opacity: 1; }
 }
+
+/* Chart parts. */
+.viz text { font-family: var(--font-mono); font-size: 8.5px; fill: var(--muted); letter-spacing: 0.02em; }
+.viz .v-strong { fill: var(--text); }
+.viz .v-axis { stroke: var(--stroke-strong); stroke-width: 1; fill: none; }
+.viz .v-ref { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+.viz .v-line { stroke: var(--accent-a); fill: none; stroke-linecap: round; }
+.viz .v-accent { fill: var(--accent-b); }
+.viz .v-dim { fill: var(--stroke-strong); }
 
 .sr-only-focusable:not(:focus):not(:focus-within) {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;

@@ -1,83 +1,93 @@
 import { site, type Project } from '@/content/site';
 import { Reveal } from './Reveal';
-import { SectionHead } from './SectionHead';
+import { SectionLabel } from './SectionLabel';
+import { Visual } from './Visual';
 
-function Card({ p, n }: { p: Project; n: number }) {
+/** The faint surface a row gets on hover (desktop only). */
+export function HoverSurface() {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition-[background-color,box-shadow] duration-200 motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-[var(--surface-hover)] lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,175,210,0.1)]"
+    />
+  );
+}
+
+export const Arrow = () => (
+  <span aria-hidden="true" className="ml-1 inline-block transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 motion-reduce:transition-none">
+    ↗
+  </span>
+);
+
+function Row({ p }: { p: Project }) {
   const [primary, ...rest] = p.links;
   return (
-    <article
-      className={`group relative flex h-full flex-col rounded-[28px] border border-stroke bg-surface p-6 md:p-8 ${primary ? 'ring-accent [--ring-w:1px]' : ''}`}
-    >
-      <div className="flex items-center justify-between text-xs text-muted">
-        <span className="label tabular-nums">{String(n).padStart(2, '0')}</span>
-        <span className="label">{p.kind === 'product' ? 'Product' : 'Research'}</span>
-      </div>
-
-      <h3 className="display mt-6 text-3xl leading-tight text-text md:text-4xl">
-        {primary ? (
-          // The name is the card's main link and stretches over the whole card.
-          <a href={primary.href} target="_blank" rel="noopener" className="outline-none after:absolute after:inset-0 after:rounded-[28px] after:content-['']">
-            {p.name}
-          </a>
-        ) : (
-          p.name
-        )}
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{p.what}</p>
-
-      <div className="mt-8">
-        <p className="display text-[2.75rem] leading-[0.95] tracking-[-0.04em] text-text tabular-nums sm:text-5xl md:text-6xl">
-          {p.kind === 'product' && (
-            <span aria-hidden="true" className="mr-3 inline-block h-2 w-2 -translate-y-[0.08em] rounded-full align-middle" style={{ background: 'var(--accent-grad)' }} />
+    <div className="group relative grid gap-4 pb-1 transition-opacity duration-200 sm:grid-cols-8 sm:gap-8 md:gap-4 lg:group-hover/list:opacity-50 lg:hover:!opacity-100">
+      <HoverSurface />
+      <div className="z-10 sm:order-2 sm:col-span-5">
+        <p className="label">{p.kind === 'product' ? 'Product' : 'Research'}</p>
+        <h3 className="mt-1.5 font-medium leading-snug text-text">
+          {primary ? (
+            <a
+              href={primary.href}
+              target="_blank"
+              rel="noopener"
+              className="group/link inline-flex items-baseline text-base font-medium leading-tight text-text transition-colors hover:text-accent focus-visible:text-accent lg:group-hover:text-accent"
+            >
+              {/* On desktop the title link covers the whole row. */}
+              <span aria-hidden="true" className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-md md:-inset-x-6 md:-inset-y-4 lg:block" />
+              <span>
+                {p.name}
+                <Arrow />
+              </span>
+            </a>
+          ) : (
+            <span className="transition-colors duration-200 lg:group-hover:text-accent">{p.name}</span>
           )}
-          {p.figure}
-        </p>
-        <p className="label mt-3">{p.figureCaption}</p>
-      </div>
-      <p className="mt-6 text-sm leading-relaxed text-text/85">{p.result}</p>
-
-      <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-8">
-        <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
+        </h3>
+        <p className="mt-2 text-sm leading-normal">{p.what}</p>
+        <p className="mt-2 text-sm leading-normal text-text/80">{p.result}</p>
+        {(rest.length > 0 || (!primary && p.note)) && (
+          <p className="mt-2 text-sm">
+            {rest.map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noopener" className="group/link relative z-20 mr-4 inline-flex items-baseline font-medium text-text/90 transition-colors hover:text-accent">
+                {l.label}
+                <Arrow />
+              </a>
+            ))}
+            {!primary && p.note && <span className="text-muted">{p.note}</span>}
+          </p>
+        )}
+        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Stack">
           {p.stack.map((s) => (
-            <li key={s} className="rounded-full border border-stroke px-2.5 py-1 text-[11px] text-muted">
+            <li key={s} className="rounded-full bg-chip px-3 py-1 text-xs font-medium leading-5 text-chip-text">
               {s}
             </li>
           ))}
         </ul>
-        <div className="relative z-10 flex flex-wrap items-center gap-2 text-xs">
-          {primary && (
-            <span className="text-muted transition-colors group-hover:text-text">
-              {primary.label} <span aria-hidden="true">↗</span>
-            </span>
-          )}
-          {rest.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener" className="ring-accent press rounded-full border border-stroke px-3 py-1.5 text-text">
-              {l.label} <span aria-hidden="true">↗</span>
-            </a>
-          ))}
-          {!primary && p.note && <span className="text-muted">{p.note}</span>}
-        </div>
       </div>
-    </article>
+      <div className="z-10 max-w-[250px] sm:order-1 sm:col-span-3 sm:max-w-none sm:translate-y-1">
+        <Visual p={p} />
+      </div>
+    </div>
   );
 }
 
 export function Work() {
   return (
-    <section id="work" aria-labelledby="work-title" className="relative mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6 md:py-40">
-      <SectionHead id="work" eyebrow={`Selected work · ${String(site.projects.length).padStart(2, '0')}`} title="What I built, and what came of it." />
-      <ol className="grid gap-4 md:grid-cols-2 md:gap-5">
-        {site.projects.map((p, i) => (
-          <Reveal as="li" key={p.id} delay={(i % 2) * 80}>
-            <Card p={p} n={i + 1} />
+    <section id="work" aria-labelledby="work-title" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+      <SectionLabel id="work-title">Work</SectionLabel>
+      <ol className="group/list">
+        {site.projects.map((p) => (
+          <Reveal as="li" key={p.id} id={`work-${p.id}`} className="mb-14 scroll-mt-24">
+            <Row p={p} />
           </Reveal>
         ))}
       </ol>
-      <Reveal className="mt-12 flex justify-center">
-        <a href={site.moreLink.href} target="_blank" rel="noopener" className="ring-accent press rounded-full border-2 border-stroke px-6 py-3 text-sm text-text">
-          {site.moreLink.label} <span aria-hidden="true">↗</span>
-        </a>
-      </Reveal>
+      <a href={site.moreLink.href} target="_blank" rel="noopener" className="group/link inline-flex items-baseline font-medium leading-tight text-text transition-colors hover:text-accent">
+        {site.moreLink.label}
+        <Arrow />
+      </a>
     </section>
   );
 }

@@ -1,22 +1,23 @@
-'use client';
-
-import { openTerminal } from './TerminalHost';
+import { TerminalButton } from './TerminalButton';
 
 export function Footer() {
   return (
-    <footer className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-stroke px-4 py-8 text-xs text-muted sm:flex-row sm:px-6">
-      <p>© 2026 Emilio Gappa</p>
-      <div className="flex items-center gap-5">
+    <footer className="max-w-md pb-16 text-sm text-muted sm:pb-0">
+      <p className="leading-relaxed">
+        Built with Next.js and Tailwind CSS, deployed on Vercel. Set in Schibsted Grotesk, Inter and Martian Mono. The figure on the left is an animated sketch
+        after{' '}
+        <a href="https://github.com/CH4RL3I/fearcurve" target="_blank" rel="noopener" className="font-medium text-body transition-colors hover:text-text">
+          fearcurve
+        </a>
+        , which recovers implied probability distributions from option prices.
+      </p>
+      <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span>© 2026 Emilio Gappa</span>
         <a href="/privacy.html" className="transition-colors hover:text-text">
           Privacy
         </a>
-        <button type="button" onClick={openTerminal} className="transition-colors hover:text-text">
-          <span className="hidden sm:inline">
-            Press <kbd className="rounded border border-stroke px-1.5 py-0.5 font-mono text-[10px] text-text">/</kbd> for the terminal
-          </span>
-          <span className="sm:hidden">Open the terminal</span>
-        </button>
-      </div>
+        <TerminalButton className="hidden sm:inline" />
+      </p>
     </footer>
   );
 }

@@ -19,14 +19,13 @@ export default function Privacy() {
         ← gappa.me
       </a>
       <h1 className="display mt-12 text-5xl leading-none text-text md:text-6xl">Privacy</h1>
-      <p className="label mt-4">Last updated 26 October 2026</p>
+      <p className="label mt-4">Last updated 27 October 2026</p>
 
       <H2>This website</H2>
       <p>
         gappa.me is a personal portfolio. It uses PostHog (EU servers) in cookieless mode to count page views and which terminal commands are typed,
         including questions asked with <em>Ask my portfolio</em> or <code>ask</code>. PostHog stores nothing in your browser, no account is created, and your
-        browser&apos;s Do Not Track setting is respected. The site remembers in your browser&apos;s session storage that you have seen the intro, so it
-        plays only once per visit; that entry is deleted when you close the tab.
+        browser&apos;s Do Not Track setting is respected.
       </p>
       <p className="mt-4">
         Questions you ask go to a small server function on this site. It picks the matching passages from Emilio&apos;s public project write-ups and

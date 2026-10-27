@@ -2,14 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-/** Fades and un-blurs its content the first time it scrolls into view. */
+/** Fades its content in the first time it scrolls into view (and lets its charts draw in). */
 export function Reveal({
   children,
+  id,
   className = '',
   as: Tag = 'div',
   delay = 0,
 }: {
   children: React.ReactNode;
+  id?: string;
   className?: string;
   as?: 'div' | 'li' | 'article' | 'header';
   delay?: number;
@@ -37,6 +39,7 @@ export function Reveal({
   return (
     <Tag
       ref={ref as React.Ref<never>}
+      id={id}
       data-shown={shown}
       className={`reveal ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
