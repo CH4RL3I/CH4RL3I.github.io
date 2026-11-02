@@ -8,7 +8,7 @@
   --tile: #0f1724;
   --text: #e6ebf2;
   --body: #9aa6b8;
-  --muted: #6d7a8d;
+  --muted: #8492a6;
   --stroke: #1b2533;
   --stroke-strong: #2a3748;
   --accent-a: #89aacc;
@@ -69,7 +69,7 @@ body {
   /* Small uppercase labels: dates, kinds, captions. */
   .label {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 11px;
     line-height: 1.5;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -93,6 +93,11 @@ body {
   transition-timing-function: var(--ease-out);
 }
 .press:active { transform: scale(0.97); transition-duration: 120ms; }
+
+/* Keep nearby project text readable, and give keyboard focus equal prominence. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .project-list:hover .project-row:not(:hover):not(:focus-within) { opacity: 0.88; }
+}
 
 /* Role word swap. */
 @keyframes role-in {

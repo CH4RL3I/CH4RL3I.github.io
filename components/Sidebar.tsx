@@ -21,6 +21,17 @@ export function Sidebar() {
           {hero.eyebrow}
         </p>
         <SectionNav />
+        <nav aria-label="Quick links" className="mt-5 flex flex-wrap gap-x-6 lg:hidden">
+          {[
+            ['work', 'Work'],
+            ['resume', 'Resume'],
+            ['say-hi', 'Say hi'],
+          ].map(([id, label]) => (
+            <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-text underline decoration-stroke-strong underline-offset-4 transition-colors hover:text-accent">
+              {label} <span aria-hidden="true" className="text-muted">↓</span>
+            </a>
+          ))}
+        </nav>
       </div>
 
       <div className="mt-8 lg:mt-0">
@@ -33,7 +44,7 @@ export function Sidebar() {
                 rel="noopener"
                 aria-label={`${l.label} (opens in a new tab)`}
                 title={l.label}
-                className="press block text-body hover:text-text"
+                className="press -ml-2 inline-flex min-h-11 min-w-11 items-center justify-center text-body hover:text-text"
               >
                 <LinkIcon href={l.href} className="h-6 w-6" />
               </a>
@@ -43,7 +54,7 @@ export function Sidebar() {
             <TerminalButton icon />
           </li>
         </ul>
-        <p className="label mt-6 hidden max-w-sm lg:block">Background: a neural network learning to reproduce a Monte Carlo simulation (a sketch)</p>
+        <a href="/background" className="label mt-6 hidden max-w-sm transition-colors hover:text-text lg:block">Background: a neural network learning a Monte Carlo distribution. Watch the replay ↗</a>
       </div>
     </header>
   );
