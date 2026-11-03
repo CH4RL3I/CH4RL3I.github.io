@@ -40,15 +40,16 @@
       "group": "research"
     },
     "footnote": {
-      "headline": "Cited answers over 10-K filings, scored against an XBRL-derived gold set.",
+      "headline": "31 October 2026 hybrid development evaluation: 38/64 retrieved (59%) and 63/64 supplied evidence (98%), on reused questions; not held-out or pure-model accuracy.",
       "stack": [
         "Python",
-        "BM25",
+        "Dense retrieval",
         "XBRL",
-        "Anthropic API",
-        "SQLite"
+        "Ollama"
       ],
-      "group": "research"
+      "group": "research",
+      "contentOverride": "content/footnote-evaluation.md",
+      "sourceUrl": "https://github.com/CH4RL3I/footnote/blob/152acdd200898a39196d7711dc8f8cc3b4bdbe81/docs/evaluation-2026-10-31/README.md"
     },
     "honest-odds": {
       "headline": "2,946 resolved Polymarket markets, strict out-of-sample check.",

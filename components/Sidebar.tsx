@@ -20,6 +20,9 @@ export function Sidebar() {
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_0_3px_rgba(137,170,204,0.15)]" />
           {hero.eyebrow}
         </p>
+        <a href="/emilio-gappa-cv.pdf" download className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-text underline decoration-stroke-strong underline-offset-4 transition-colors hover:text-accent">
+          Download CV <span className="text-muted">PDF · 1 page</span> <span aria-hidden="true">↓</span>
+        </a>
         <SectionNav />
         <nav aria-label="Quick links" className="mt-5 flex flex-wrap gap-x-6 lg:hidden">
           {[
@@ -54,7 +57,7 @@ export function Sidebar() {
             <TerminalButton icon />
           </li>
         </ul>
-        <a href="/background" className="label mt-6 hidden max-w-sm transition-colors hover:text-text lg:block">Background: a neural network learning a Monte Carlo distribution. Watch the replay ↗</a>
+        <a href="/background" className="label mt-6 hidden max-w-sm transition-colors hover:text-text lg:block">Background: a neural network learning a Monte Carlo distribution. <span className="inline-block">Watch the replay ↗</span></a>
       </div>
     </header>
   );

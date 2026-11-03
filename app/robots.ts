@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { siteUrl } from '@/public/site-config';
 
 export default function robots(): MetadataRoute.Robots {
-  return { rules: [{ userAgent: '*', allow: '/', disallow: '/api/' }], sitemap: 'https://gappa.me/sitemap.xml' };
+  return { rules: [{ userAgent: '*', allow: '/', disallow: '/api/' }], sitemap: siteUrl('/sitemap.xml') };
 }

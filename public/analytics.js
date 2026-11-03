@@ -1,6 +1,7 @@
 // PostHog (EU cloud), cookieless: nothing is stored in the browser, so no consent banner is needed.
 // Loaded lazily; if it fails or is blocked, track() is a no-op and the site works the same.
 // The page calls window.gmTrack(event, props).
+import { ANALYTICS_HOSTS } from './site-config.js';
 const KEY = 'phc_keoWJ4yTHvDzBLyxuShjHAoLjJg3innUhnQxiPCxuQba';
 const SRC = 'https://cdn.jsdelivr.net/npm/posthog-js@1.435.8/dist/module.js';
 
@@ -13,7 +14,7 @@ function track(event, props = {}) {
 }
 window.gmTrack = track;
 
-if (location.hostname === 'gappa.me') {
+if (ANALYTICS_HOSTS.includes(location.hostname)) {
   import(SRC).then(({ default: posthog }) => {
     posthog.init(KEY, {
       api_host: 'https://eu.i.posthog.com',

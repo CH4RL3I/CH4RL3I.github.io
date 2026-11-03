@@ -1,6 +1,6 @@
 {
   "name": "footnote",
-  "description": "Question answering over SEC 10-K filings with citations, and an XBRL-derived eval harness that measures how often it's right.",
+  "description": "Cited answers over SEC 10-K filings, with a source-extraction/model-fallback pipeline and a dated development evaluation.",
   "language": "Python",
   "homepage": null,
   "topics": [
@@ -12,5 +12,20 @@
     "retrieval",
     "sec-filings"
   ],
-  "html_url": "https://github.com/CH4RL3I/footnote"
+  "html_url": "https://github.com/CH4RL3I/footnote",
+  "readme_source_url": "https://github.com/CH4RL3I/footnote/blob/152acdd200898a39196d7711dc8f8cc3b4bdbe81/docs/evaluation-2026-10-31/README.md",
+  "readme_source_kind": "portfolio-curated-summary",
+  "evaluation": {
+    "date": "2026-10-31",
+    "pipeline": "source-grounded-usd-v11",
+    "scorer": "signed-usd-v2",
+    "cohort": "development",
+    "questionCount": 64,
+    "retrievedCorrect": 38,
+    "suppliedEvidenceCorrect": 63,
+    "reusesDevelopmentData": true,
+    "pureModelAccuracy": false,
+    "sourceCommit": "152acdd200898a39196d7711dc8f8cc3b4bdbe81",
+    "sourceUrl": "https://github.com/CH4RL3I/footnote/blob/152acdd200898a39196d7711dc8f8cc3b4bdbe81/docs/evaluation-2026-10-31/README.md"
+  }
 }

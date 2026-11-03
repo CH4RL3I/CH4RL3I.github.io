@@ -11,6 +11,8 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildIndex } from '../lib/bm25.mjs';
+import { CASE_STUDIES } from '../content/case-studies.ts';
+import { siteUrl } from '../public/site-config.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const p = (...a) => join(root, ...a);
@@ -106,9 +108,11 @@ function addChunk(repo, section, text, url, anchor) {
 // ---------- public repos ----------
 const projects = [];
 for (const id of cfg.repos) {
+  const m = cfg.meta[id] || {};
   let r;
   try { r = fetchRepo(id); } catch (e) { console.warn(`skip ${id}: ${e.message.split('\n')[0]}`); continue; }
-  const m = cfg.meta[id] || {};
+  // Curated evaluation evidence remains stable when an online README refresh runs.
+  if (m.contentOverride) r.readme = readFileSync(p(m.contentOverride), 'utf8');
   const repoUrl = r.info.html_url || `https://github.com/${cfg.owner}/${id}`;
   projects.push({
     id, name: id, kind: 'public', group: m.group || 'research',
@@ -118,12 +122,12 @@ for (const id of cfg.repos) {
   const desc = r.info.description || '';
   const head = m.headline && !desc.includes(m.headline.slice(0, 24)) ? m.headline : '';
   const topics = (r.info.topics || []).map((t) => t.replace(/-/g, ' ')).join(', ');
-  addChunk(id, 'Summary', `${id}: ${desc} ${head} Stack: ${(m.stack || []).join(', ')}.${topics ? ` Topics: ${topics}.` : ''}`.replace(/\s+/g, ' '), repoUrl, 'summary');
+  addChunk(id, 'Summary', `${id}: ${desc} ${head} Stack: ${(m.stack || []).join(', ')}.${topics ? ` Topics: ${topics}.` : ''}`.replace(/\s+/g, ' '), m.sourceUrl || repoUrl, 'summary');
   for (const s of sections(r.readme)) {
     if (/^licen[sc]e$/i.test(s.heading)) continue;
     if (/^(team|authors?|contributors?|credits|acknowledg(e)?ments?)$/i.test(s.heading)) continue; // other people's names
     const body = clean(s.body.join('\n'));
-    const url = s.heading === 'Overview' ? repoUrl : `${repoUrl}#${ghSlug(s.heading)}`;
+    const url = m.sourceUrl || (s.heading === 'Overview' ? repoUrl : `${repoUrl}#${ghSlug(s.heading)}`);
     const parts = pieces(body);
     parts.forEach((part) => addChunk(id, s.heading, part, url, s.heading === 'Overview' ? 'overview' : undefined));
   }
@@ -168,14 +172,14 @@ if (icons) addChunk('profile', 'Stack', `Emilio's stack, as listed on his GitHub
 const sitePath = p('content/site.json');
 if (existsSync(sitePath)) {
   const site = JSON.parse(readFileSync(sitePath, 'utf8'));
-  const home = 'https://gappa.me/';
+  const home = siteUrl('/');
   const slug = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const plain = (x) => x.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]+\)/g, '$1');
   const about = site.about ? ` ${site.about.intro} ${site.about.items.map((i) => plain(i).replace(/^./, (c) => c.toLowerCase())).join(' I ')}` : '';
   addChunk('gappa.me', 'About', `Emilio Gappa, based in ${site.hero.place}. ${site.hero.eyebrow}. ${site.hero.bio}${about}`, home, 'about');
   for (const pj of site.projects) {
     const text = `${pj.name} (${pj.kind}): ${pj.what} ${pj.figure}: ${pj.figureCaption}. ${pj.result} Stack: ${pj.stack.join(', ')}.${pj.note ? ` ${pj.note}.` : ''}`;
-    addChunk('gappa.me', `Work: ${pj.name}`, text, `${home}#work`, `work-${slug(pj.id)}`);
+    addChunk('gappa.me', `Work: ${pj.name}`, text, `${home}#work-${pj.id}`, `work-${slug(pj.id)}`);
   }
   for (const e of site.resume.work) {
     addChunk('gappa.me', `Work experience: ${e.org}`, `Emilio worked as ${e.role}, ${e.org} (${e.place}), ${e.start} to ${e.end}. ${e.line}`, `${home}#resume`, `resume-${slug(e.org)}`);
@@ -183,6 +187,30 @@ if (existsSync(sitePath)) {
   for (const e of site.resume.education) {
     addChunk('gappa.me', `Education: ${e.org}`, `Study: Emilio studied ${e.role} at ${e.org} (${e.place}), ${e.start} to ${e.end}. ${e.line}`, `${home}#resume`, `education-${slug(e.org)}`);
   }
+}
+
+// ---------- published case studies: factual content, never invented demo values ----------
+for (const study of CASE_STUDIES) {
+  const base = siteUrl(`/work/${study.slug}`);
+  const sections = [
+    ['Overview', `${study.summary} Status: ${study.status}. Emilio's role: ${study.role}`, ''],
+    ['The problem', study.problem.join('\n\n'), 'problem'],
+    ['My contribution', study.contribution.join('\n\n'), 'contribution'],
+    ['Design decision', `${study.decision.title}. ${study.decision.choice}\n\n${study.decision.tradeoff}`, 'decision'],
+    ['What changed', study.outcomes.map((o) => `${o.title}: ${o.detail}`).join('\n\n'), 'outcomes'],
+    ['Walkthrough scope', study.evidenceNote, 'demo'],
+  ];
+  for (const [section, text, anchor] of sections) {
+    for (const part of pieces(text)) addChunk('gappa.me', `${study.projectId}: ${section}`, part, `${base}${anchor ? `#${anchor}` : ''}`, `case-${study.slug}-${anchor || 'overview'}`);
+  }
+}
+
+// ---------- public CV: same professional facts as the downloadable PDF ----------
+const cv = JSON.parse(readFileSync(p('content/public-cv.json'), 'utf8'));
+const cvUrl = siteUrl('/emilio-gappa-cv.pdf');
+addChunk('gappa.me', 'CV and internship availability', `${cv.name}, ${cv.location}. ${cv.availability}. Target roles: ${cv.targetRoles.join(', ')}. ${cv.summary} Download the public CV (updated ${cv.updated}) from ${cvUrl}.`, cvUrl, 'public-cv');
+for (const entry of cv.experience) {
+  for (const part of pieces(`${entry.role}, ${entry.org}, ${entry.dates}. ${entry.bullets.join(' ')}`)) addChunk('gappa.me', `CV: ${entry.org}`, part, cvUrl, `cv-${ghSlug(entry.org)}`);
 }
 
 // ---------- write ----------

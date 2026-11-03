@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "Emilio Gappa",
-    "description": "Emilio Gappa builds AI systems and tests trading ideas against real data. Master in Management student in Lisbon, open to internships from January 2027."
+    "description": "Emilio Gappa designs applied AI products and software for real workflows. NOVA SBE master’s student in Lisbon, available for applied AI and AI product development internships from January 2027."
   },
   "hero": {
-    "eyebrow": "Open to internships · Jan 2027",
+    "eyebrow": "Applied AI & AI product internships · Jan 2027",
     "roles": [
       {
         "article": "A",
@@ -24,7 +24,7 @@
       }
     ],
     "place": "Lisbon",
-    "bio": "I build AI systems and test ideas against real data, then report what actually holds up."
+    "bio": "I build AI tools for real workflows and test ideas against real data, then report what actually holds up."
   },
   "about": {
     "greeting": "Hi, I'm Emilio.",
@@ -33,7 +33,7 @@
       "**Build products:** an [operations platform](#work-gonder-platform) at Gonder, [ImmoApp](#work-immoapp) together with Jan, the AI assistant [Co-Driver](#work-co-driver), and [Apto](#work-apto) at a hackathon.",
       "**Test ideas against held-out data** and publish what fails too: none of the [15,000 candidate trading strategies](#work-alpha-graveyard) my search produced survived.",
       "**Freelance** on AI agents and web apps for Connecto / HyCharge, Rancyne and a Microsoft 365 client.",
-      "**Look for an internship** from January 2027. [Say hi](#say-hi)."
+      "**Look for an applied AI or AI product development internship** from January 2027. [Download my CV](/emilio-gappa-cv.pdf) or [say hi](#say-hi)."
     ],
     "sources": [
       "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt",
@@ -49,7 +49,7 @@
       "what": "An operations platform and a facility-management portal, built in-house at Gonder Group.",
       "figure": "Live on Azure",
       "figureCaption": "two apps in production",
-      "result": "Covers quoting, costing and fuel-card fraud checks for the fleet, plus a portal with AI contract extraction and 591 passing tests.",
+      "result": "Takes quoting, costing and fleet exceptions into reviewable workflows, alongside a portal for contracts and service requests. Two apps in production on Azure.",
       "stack": [
         "Next.js",
         "TypeScript",
@@ -58,7 +58,7 @@
         "Azure"
       ],
       "links": [],
-      "note": "Employer work, private code. Walkthrough on request.",
+      "note": "Employer work, private code. The case study includes a mock walkthrough.",
       "visual": {
         "type": "status"
       },
@@ -74,7 +74,7 @@
       "what": "Property-management software for German private landlords, built together with Jan.",
       "figure": "Live",
       "figureCaption": "in production · iOS beta on TestFlight",
-      "result": "Covers tax forms, utility-cost statements, rent indexation and bank reconciliation.",
+      "result": "Helps private landlords prepare tax forms and utility-cost statements, track indexed rents, and reconcile bank transactions.",
       "stack": [
         "Next.js",
         "Prisma",
@@ -98,7 +98,7 @@
       "what": "A private AI assistant and personal CRM that triages messages, briefs before meetings and drafts replies.",
       "figure": "TestFlight",
       "figureCaption": "iOS app in internal testing",
-      "result": "It acts only after each action is approved and signed on the phone.",
+      "result": "Turns message context into meeting briefs and reviewable drafts. Each action needs approval and a signature on the phone before execution.",
       "stack": [
         "TypeScript",
         "SwiftUI",
@@ -106,7 +106,7 @@
         "Claude API"
       ],
       "links": [],
-      "note": "Private code. Walkthrough on request.",
+      "note": "Private code. The case study includes a simulated approval walkthrough.",
       "visual": {
         "type": "status"
       },
@@ -230,9 +230,9 @@
       "name": "footnote",
       "kind": "research",
       "what": "Cited question answering over SEC 10-K filings, with a harness that measures how often it is right.",
-      "figure": "56% vs 92%",
-      "figureCaption": "answer accuracy: retrieved vs given passages",
-      "result": "Accuracy is 56% on retrieved passages and 92% when the right passages are given, so retrieval, not the model, is the bottleneck.",
+      "figure": "59% vs 98%",
+      "figureCaption": "Development eval · 31 Oct 2026 · retrieved / supplied",
+      "result": "Hybrid pipeline: 38/64 retrieved, 63/64 with supplied evidence. Reused development questions; neither held-out results nor pure-model accuracy.",
       "stack": [
         "Python",
         "Dense retrieval",
@@ -243,25 +243,29 @@
         {
           "label": "GitHub",
           "href": "https://github.com/CH4RL3I/footnote"
+        },
+        {
+          "label": "Evaluation methods · 31 Oct 2026",
+          "href": "https://github.com/CH4RL3I/footnote/blob/152acdd200898a39196d7711dc8f8cc3b4bdbe81/docs/evaluation-2026-10-31/README.md"
         }
       ],
       "visual": {
         "type": "bars",
-        "label": "Answer accuracy",
+        "label": "Development eval · 31 Oct 2026",
         "items": [
           {
             "label": "Retrieved",
-            "value": 56.25
+            "value": 59.375
           },
           {
-            "label": "Given",
-            "value": 92.19
+            "label": "Supplied",
+            "value": 98.4375
           }
         ]
       },
       "sources": [
-        "data/cache/footnote.md",
-        "CH4RL3I/footnote: docs/results.json"
+        "content/footnote-evaluation.md",
+        "CH4RL3I/footnote@152acdd200898a39196d7711dc8f8cc3b4bdbe81: docs/evaluation-2026-10-31/README.md"
       ]
     },
     {
@@ -473,7 +477,7 @@
   },
   "sayHi": {
     "headline": "Let's talk.",
-    "text": "I am available for internships from January 2027. The best way to reach me is LinkedIn; my code is on GitHub.",
+    "text": "I am available for applied AI and AI product development internships from January 2027. The best way to reach me is LinkedIn; you can also download my CV above.",
     "links": [
       {
         "label": "LinkedIn",

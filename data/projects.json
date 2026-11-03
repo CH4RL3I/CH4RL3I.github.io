@@ -57,14 +57,13 @@
       "name": "footnote",
       "kind": "public",
       "group": "research",
-      "pitch": "Question answering over SEC 10-K filings with citations, and an XBRL-derived eval harness that measures how often it's right.",
-      "headline": "Cited answers over 10-K filings, scored against an XBRL-derived gold set.",
+      "pitch": "Cited answers over SEC 10-K filings, with a source-extraction/model-fallback pipeline and a dated development evaluation.",
+      "headline": "31 October 2026 hybrid development evaluation: 38/64 retrieved (59%) and 63/64 supplied evidence (98%), on reused questions; not held-out or pure-model accuracy.",
       "stack": [
         "Python",
-        "BM25",
+        "Dense retrieval",
         "XBRL",
-        "Anthropic API",
-        "SQLite"
+        "Ollama"
       ],
       "url": "https://github.com/CH4RL3I/footnote",
       "homepage": null,

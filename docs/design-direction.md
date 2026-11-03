@@ -40,7 +40,7 @@ Each of the 8 projects is a row: a visual on the left (3 of 8 columns), then kin
 
 - **Research projects get a small chart drawn from their own result files**, as inline SVG in the site's colours:
   - alpha-graveyard: the top 10 strategies by discovery Sharpe, each a line from discovery to held-out Sharpe (`results/top_strategies.csv`).
-  - footnote: answer accuracy, 56 % on retrieved passages against 92 % with the right passages given (`docs/results.json`).
+  - footnote: hybrid pipeline development evaluation dated 31 October 2026, 38/64 retrieved (59 %) against 63/64 supplied evidence (98 %). Reused questions, not held-out or pure-model accuracy; source is the dated report linked from the card.
   - blind-committee: total return and maximum drawdown, agents against equal weight (`results/run/summary.json`).
   - honest-odds: calibration slope by horizon with its 95 % interval against the calibrated line at 1.0 (README table).
 - **Apto** shows its landing page screenshot from the public repo (mock data only).
@@ -70,7 +70,7 @@ Numbers come only from the project READMEs, their result files and the verified 
 | 03 | **Co-Driver** | Private AI assistant and personal CRM | Acts only after each action is approved and signed on his phone; iOS app on TestFlight. |
 | 04 | **Apto** | START Unicorn Lisbon hackathon app. He built almost all of it. | Live demo online. |
 | 05 | **alpha-graveyard** | Automated trading-strategy search, then held-out data | 15,000 candidates; the best in-sample Sharpe of 1.65 fell to −0.12, none passed the Deflated Sharpe test. |
-| 06 | **footnote** | Cited question answering over SEC 10-K filings | 56 % end-to-end accuracy against 92 % with the right passages given. |
+| 06 | **footnote** | Cited question answering over SEC 10-K filings | Development evaluation, 31 Oct 2026: 59 % retrieved (38/64) and 98 % with supplied evidence (63/64), on reused development questions. |
 | 07 | **blind-committee** | LLM analyst agents, a risk manager and a portfolio manager | +41.3 % against +76.3 % for equal weight, with half the drawdown. |
 | 08 | **honest-odds** | Are Polymarket prices calibrated? 2,946 resolved markets | Calibration slope 0.999 at 30 days; the recalibration edge does not survive costs. |
 

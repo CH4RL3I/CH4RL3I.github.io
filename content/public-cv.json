@@ -1,0 +1,68 @@
+{
+  "updated": "2026-11-03",
+  "name": "Emilio Gappa",
+  "location": "Lisbon, Portugal",
+  "targetRoles": ["Applied AI", "AI product development"],
+  "availability": "Available for a full-time internship from January 2027",
+  "links": {
+    "portfolio": "https://gappa.me",
+    "linkedin": "https://www.linkedin.com/in/emilio-gappa-44448223a/",
+    "github": "https://github.com/CH4RL3I"
+  },
+  "summary": "TUM Management & Technology graduate and NOVA SBE master's candidate who designs AI products, directs their implementation and reviews the results. Experience taking operations software into production and testing research ideas against data.",
+  "skills": [
+    {"label": "AI & data", "items": ["LLM APIs", "human-approved agents", "retrieval and evaluation", "Python", "pandas", "NumPy", "statistical testing"]},
+    {"label": "Products & platforms", "items": ["TypeScript", "Next.js", "PostgreSQL", "Azure", "Entra ID", "Microsoft Graph", "Salesforce CRM Analytics"]}
+  ],
+  "experience": [
+    {
+      "org": "Gonder Group",
+      "role": "Working Student, CEO Office - AI & Process Automation",
+      "dates": "Jun 2026 - Present",
+      "location": "Frankfurt, Germany",
+      "bullets": [
+        "Designed and directed development of an operations platform and a facility-management portal, both in production on Microsoft Azure. Intern until October 2026; now a working student.",
+        "Delivered quoting and costing workflows, fuel-card checks and AI contract extraction. Set scope and architecture, using AI coding agents, independent review and automated testing."
+      ]
+    },
+    {
+      "org": "Freelance",
+      "role": "AI Agents & Web Applications",
+      "dates": "Jun 2026 - Present",
+      "location": "Self-employed",
+      "bullets": ["Designed knowledge agents and web applications for finance and operations, including cited Microsoft 365 search and human-reviewed reply drafts."]
+    },
+    {
+      "org": "Proaping Bicycles GmbH",
+      "role": "Forensic Audit & Controlling (Freelance)",
+      "dates": "Nov 2025 - Feb 2026",
+      "location": "Germany",
+      "bullets": ["Reconstructed transaction histories from accounting records and bank statements, documenting the findings in management workpapers."]
+    },
+    {
+      "org": "ATLAS Vertriebsservice GmbH (DVAG Group)",
+      "role": "Intern, CRM Analytics, Client & Portfolio Management",
+      "dates": "Jul 2025 - Nov 2025",
+      "location": "Frankfurt, Germany",
+      "bullets": ["Moved recurring reporting from Excel to Salesforce CRM Analytics, reducing manual reporting effort by about 40%; analysed adoption KPIs with Python and Excel."]
+    },
+    {
+      "org": "Ideal Standard International",
+      "role": "Intern, CRM & Sales Analytics (Project Studies)",
+      "dates": "Mar 2024 - Jun 2024",
+      "location": "Brussels, Belgium",
+      "bullets": ["Built Salesforce and Excel dashboards for pipeline efficiency and client segmentation in an international B2B setting."]
+    }
+  ],
+  "projects": [
+    {"name": "Co-Driver", "href": "https://gappa.me/work/co-driver", "summary": "Own AI assistant and personal CRM: message triage, meeting briefs and reply drafts, with device-signed approval before actions. Native iOS app in TestFlight internal testing."},
+    {"name": "ImmoApp", "href": "https://gappa.me/#work-immoapp", "summary": "Property-management product built with a partner, covering tax forms, utility-cost statements, rent indexation and bank reconciliation. Live in production; iOS beta."},
+    {"name": "Research & prototypes", "href": "https://github.com/CH4RL3I", "summary": "alpha-graveyard: none of 15,000 candidate strategies survived the held-out evaluation. Footnote: cited SEC-filings Q&A with an evaluation harness. Apto: built almost all of a student work-sample app at a hackathon."}
+  ],
+  "education": [
+    {"org": "NOVA School of Business and Economics", "degree": "Master in Management, Finance Track - expected May 2027", "dates": "Jan 2026 - May 2027", "location": "Lisbon, Portugal"},
+    {"org": "Technical University of Munich (TUM)", "degree": "B.Sc. Management & Technology, Computer Engineering", "dates": "Oct 2021 - Mar 2025", "location": "Munich, Germany"},
+    {"org": "Hawaii Pacific University", "degree": "Exchange Semester, International Business", "dates": "Aug 2023 - Dec 2023", "location": "Honolulu, USA"}
+  ],
+  "languages": ["German (native)", "English (C1)", "French (A2)"]
+}

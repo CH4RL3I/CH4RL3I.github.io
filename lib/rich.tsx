@@ -1,6 +1,6 @@
 // The small inline markup used in content/site.json: **bold** and [text](href).
-// Links may only be in-page anchors or https URLs.
-const TOKEN = /\*\*(.+?)\*\*|\[(.+?)\]\((#[\w-]+|https:\/\/[^\s)]+)\)/g;
+// Links may be in-page anchors, HTTPS URLs or local paths; exclude protocol-relative URLs.
+const TOKEN = /\*\*(.+?)\*\*|\[(.+?)\]\((#[\w-]+|https:\/\/[^\s)]+|\/(?!\/)[\w./#?=&%~-]+)\)/g;
 
 export function Rich({ text }: { text: string }) {
   const out: React.ReactNode[] = [];
@@ -13,7 +13,7 @@ export function Rich({ text }: { text: string }) {
     } else {
       const external = m[3].startsWith('https://');
       out.push(
-        <a key={at} href={m[3]} className="link" {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
+        <a key={at} href={m[3]} download={m[3].startsWith('/') && m[3].endsWith('.pdf') ? true : undefined} className="link" {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
           {m[2]}
         </a>,
       );

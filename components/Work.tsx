@@ -1,4 +1,5 @@
 import { site, type Project } from '@/content/site';
+import { CASE_STUDIES } from '@/content/case-studies';
 import { GitHubIcon, LinkIcon } from './Icons';
 import { Reveal } from './Reveal';
 import { SectionLabel } from './SectionLabel';
@@ -21,7 +22,11 @@ export const Arrow = () => (
 );
 
 function Row({ p }: { p: Project }) {
-  const [primary, ...rest] = p.links;
+  const story = CASE_STUDIES.find((study) => study.projectId === p.id);
+  const [externalPrimary, ...externalRest] = p.links;
+  const primary = story ? { label: 'Case study', href: `/work/${story.slug}` } : externalPrimary;
+  const rest = story ? p.links : externalRest;
+  const internal = primary?.href.startsWith('/');
   return (
     <div className="project-row group relative grid gap-4 pb-1 transition-opacity duration-200 motion-reduce:transition-none sm:grid-cols-8 sm:gap-8 md:gap-4">
       <HoverSurface />
@@ -31,8 +36,8 @@ function Row({ p }: { p: Project }) {
           {primary ? (
             <a
               href={primary.href}
-              target="_blank"
-              rel="noopener"
+              target={internal ? undefined : '_blank'}
+              rel={internal ? undefined : 'noopener'}
               className="group/link inline-flex items-baseline text-base font-medium leading-tight text-text transition-colors hover:text-accent focus-visible:text-accent lg:group-hover:text-accent"
             >
               {/* On desktop the title link covers the whole row. */}
@@ -49,7 +54,7 @@ function Row({ p }: { p: Project }) {
         </h4>
         <p className="mt-2 text-sm leading-normal">{p.what}</p>
         <p className="mt-2 text-sm leading-normal text-text/80">{p.result}</p>
-        {(rest.length > 0 || (!primary && p.note)) && (
+        {(rest.length > 0 || p.note) && (
           <p className="mt-2 text-sm">
             {rest.map((l) => (
               <a
@@ -62,7 +67,7 @@ function Row({ p }: { p: Project }) {
                 className="group/link press relative z-20 mr-4 inline-flex items-center gap-1.5 text-body hover:text-text"
               >
                 <LinkIcon href={l.href} className="h-5 w-5" />
-                {!/github\.com|linkedin\.com/.test(l.href) && (
+                {(!/github\.com|linkedin\.com/.test(l.href) || !['GitHub', 'LinkedIn'].includes(l.label)) && (
                   <>
                     {l.label}
                     <Arrow />
@@ -70,7 +75,7 @@ function Row({ p }: { p: Project }) {
                 )}
               </a>
             ))}
-            {!primary && p.note && <span className="text-muted">{p.note}</span>}
+            {p.note && <span className="text-muted">{p.note}</span>}
           </p>
         )}
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Stack">
@@ -84,12 +89,12 @@ function Row({ p }: { p: Project }) {
           {primary ? (
             <a
               href={primary.href}
-              target="_blank"
-              rel="noopener"
-              aria-label={`View ${p.name} ${primary.href.includes('github.com') ? 'on GitHub' : 'live demo'} (opens in a new tab)`}
+              target={internal ? undefined : '_blank'}
+              rel={internal ? undefined : 'noopener'}
+              aria-label={story ? `Read the ${p.name} case study` : `View ${p.name} ${primary.href.includes('github.com') ? 'on GitHub' : 'live demo'} (opens in a new tab)`}
               className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-text underline decoration-stroke-strong underline-offset-4 transition-colors hover:text-accent"
             >
-              {primary.href.includes('github.com') ? 'Read the project' : 'Open live demo'}
+              {story ? 'Read the case study' : primary.href.includes('github.com') ? 'Read the project' : 'Open live demo'}
               <Arrow />
             </a>
           ) : (

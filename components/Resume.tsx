@@ -43,6 +43,10 @@ export function Resume() {
   return (
     <section id="resume" aria-labelledby="resume-title" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
       <SectionLabel id="resume-title">Resume</SectionLabel>
+      <p className="mb-8 text-sm leading-relaxed">
+        <a href="/emilio-gappa-cv.pdf" download className="inline-flex min-h-11 items-center gap-2 font-medium text-text underline decoration-stroke-strong underline-offset-4 hover:text-accent">Download CV <span aria-hidden="true">↓</span></a>
+        <span className="ml-3 text-muted">PDF · 1 page · updated 3 Nov 2026</span>
+      </p>
       <Entries title="Work" items={site.resume.work} />
       <div className="mt-6">
         <Entries title="Education" items={site.resume.education} />
