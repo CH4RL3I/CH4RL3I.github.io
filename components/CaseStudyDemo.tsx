@@ -2,6 +2,7 @@
 
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { exampleQuote, initialAssistantDemo, transitionAssistantDemo } from '@/lib/case-study-demo';
+import { track } from '@/lib/track';
 
 const button = 'press inline-flex min-h-11 items-center justify-center rounded-md border border-stroke-strong bg-surface px-4 py-2 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-stroke-strong disabled:hover:text-text';
 const money = (value: number) => new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
@@ -24,8 +25,13 @@ function QuoteDemo() {
     if (previousStep.current === step) return;
     previousStep.current = step;
     if (step === 'prepare') visitsRef.current?.focus();
-    else if (step === 'review') reviewRef.current?.focus();
-    else completedRef.current?.focus();
+    else if (step === 'review') {
+      track('demo_start', { project: 'gonder-operations' });
+      reviewRef.current?.focus();
+    } else {
+      track('demo_complete', { project: 'gonder-operations' });
+      completedRef.current?.focus();
+    }
   }, [step]);
 
   return (
@@ -89,6 +95,8 @@ function AssistantDemo() {
 
   useEffect(() => {
     if (previousStep.current === state.step) return;
+    if (previousStep.current === 'inbox' && state.step === 'draft') track('demo_start', { project: 'co-driver' });
+    if (state.step === 'complete') track('demo_complete', { project: 'co-driver' });
     previousStep.current = state.step;
     if (state.step === 'inbox') initialRef.current?.focus();
     else if (state.step === 'draft') draftRef.current?.focus();

@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { initialAssistantDemo, transitionAssistantDemo as next } from '../lib/case-study-demo.ts';
+import { exampleQuote, initialAssistantDemo, transitionAssistantDemo as next } from '../lib/case-study-demo.ts';
+
+test('the three-visit quote matches the case study reference, including the one-time setup fee', () => {
+  const quote = exampleQuote(3);
+  assert.ok(quote);
+  assert.deepEqual(quote.lines.map(({ quantity, unit }) => quantity * unit), [255, 72, 45]);
+  assert.equal(quote.total, 372);
+});
 
 test('the walkthrough cannot complete an action before review and simulated approval', () => {
   let state = { ...initialAssistantDemo };

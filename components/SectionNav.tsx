@@ -13,7 +13,7 @@ export const SECTIONS = [
 type Id = (typeof SECTIONS)[number][0];
 
 /** The left column's section list. The line of the section being read grows; that is the page's scroll feedback. */
-export function SectionNav() {
+export function SectionNav({ answersEnabled }: { answersEnabled: boolean }) {
   const [active, setActive] = useState<Id>('about');
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function SectionNav() {
                 />
                 {/* The line is scaled, not resized, so the label is moved with it: both stay on the compositor. */}
                 <span className="-translate-x-8 text-xs font-semibold uppercase tracking-[0.16em] text-muted transition-[translate,color] duration-200 ease-out group-hover:translate-x-0 group-hover:text-text group-focus-visible:translate-x-0 group-focus-visible:text-text group-data-[on=true]:translate-x-0 group-data-[on=true]:text-text motion-reduce:transition-none">
-                  {label}
+                  {id === 'ask' && !answersEnabled ? 'Search' : label}
                 </span>
               </a>
             </li>

@@ -1,3 +1,5 @@
+type CaseMediaPath = `/work/${string}`;
+
 export type CaseStudy = {
   slug: string;
   projectId: string;
@@ -10,6 +12,34 @@ export type CaseStudy = {
   decision: { title: string; choice: string; tradeoff: string };
   workflow: readonly string[];
   outcomes: readonly { title: string; detail: string }[];
+  engineering: {
+    title: string;
+    summary: string;
+    examples: readonly {
+      title: string;
+      fields: readonly { label: string; value: string }[];
+      result: string;
+    }[];
+    verification: string;
+    reproduce: string;
+  };
+  media?: {
+    recording?: {
+      src: CaseMediaPath;
+      poster?: CaseMediaPath;
+      captions?: CaseMediaPath;
+      width: number;
+      height: number;
+      description: string;
+    };
+    screenshots?: readonly {
+      src: CaseMediaPath;
+      width: number;
+      height: number;
+      alt: string;
+      caption: string;
+    }[];
+  };
   demo: { kind: 'gonder' | 'co-driver'; title: string; description: string };
   stack: readonly string[];
   evidenceNote: string;
@@ -44,6 +74,32 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       { title: 'Repeatable costing checks', detail: 'Established calculation rules can be checked against reference results when the software changes. This provides a concrete review mechanism for pricing logic.' },
       { title: 'Exceptions reach a person', detail: 'Fuel-card checks surface transactions for investigation. Contract deadlines, tickets and inspection reports have dedicated workflows in the customer portal.' },
     ],
+    engineering: {
+      title: 'Catch a missing charge with a reference calculation',
+      summary: 'I used reference cases to compare the costing engine with an established workbook. This fictional quote shows how the same check can pinpoint a missing setup fee.',
+      examples: [
+        {
+          title: 'Reference calculation',
+          fields: [
+            { label: 'Three visits at €85', value: '€255' },
+            { label: 'Materials allowance', value: '€72' },
+            { label: 'Setup and checks', value: '€45' },
+          ],
+          result: 'Expected total €372',
+        },
+        {
+          title: 'Simulated omission',
+          fields: [
+            { label: 'Three visits at €85', value: '€255' },
+            { label: 'Materials allowance', value: '€72' },
+            { label: 'Setup and checks', value: 'Omitted' },
+          ],
+          result: 'Incorrect total €327',
+        },
+      ],
+      verification: 'Comparing the lines isolates the missing setup fee and explains the €45 difference. The portfolio’s automated check compares each line and the total against the fixed reference.',
+      reproduce: 'Set the walkthrough to three visits and check for €372 before reviewing the quote.',
+    },
     demo: {
       kind: 'gonder',
       title: 'From a work item to a reviewed quote',
@@ -79,6 +135,30 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       { title: 'A concrete boundary for automation', detail: 'The device-approval requirement separates an AI proposal from permission to act. A native iOS interface makes that approval a first-class part of the product.' },
       { title: 'A native app in TestFlight', detail: 'The iOS app has reached internal TestFlight testing, providing a native interface for the assistant and its approval workflow.' },
     ],
+    engineering: {
+      title: 'Require a new approval when a draft changes',
+      summary: 'I separated preparation, approval and execution so the user can review the specific action they authorize. This browser example exercises that boundary with a fictional reply.',
+      examples: [
+        {
+          title: 'After approval',
+          fields: [
+            { label: 'Current reply', value: 'Thursday at 14:00' },
+            { label: 'Approved reply', value: 'Thursday at 14:00' },
+          ],
+          result: 'Completion enabled',
+        },
+        {
+          title: 'After an edit',
+          fields: [
+            { label: 'Current reply', value: 'Friday at 10:00' },
+            { label: 'Approved reply', value: 'Approval cleared' },
+          ],
+          result: 'Completion blocked',
+        },
+      ],
+      verification: 'The portfolio’s automated checks cover attempts to complete before approval and after editing an approved reply. A new review and simulated approval enable completion again.',
+      reproduce: 'Approve the sample reply, edit its text, and check that the completion button becomes disabled.',
+    },
     demo: {
       kind: 'co-driver',
       title: 'A draft is a proposal until you approve it',

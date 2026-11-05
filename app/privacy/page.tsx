@@ -19,18 +19,17 @@ export default function Privacy() {
         ← gappa.me
       </a>
       <h1 className="display mt-12 text-5xl leading-none text-text md:text-6xl">Privacy</h1>
-      <p className="label mt-4">Last updated 27 October 2026</p>
+      <p className="label mt-4">Last updated 5 November 2026</p>
 
       <H2>This website</H2>
       <p>
-        gappa.me is a personal portfolio. It uses PostHog (EU servers) in cookieless mode to count page views and which terminal commands are typed,
-        including questions asked with <em>Ask my portfolio</em> or <code>ask</code>. PostHog stores nothing in your browser, no account is created, and your
-        browser&apos;s Do Not Track setting is respected.
+        gappa.me is a personal portfolio. It uses PostHog (EU servers) to count page views, CV download clicks, case study visits, walkthrough starts
+        and completions, contact clicks, built-in terminal commands and Ask outcomes. Ask events contain the outcome category and entry point.
+        The site keeps analytics state in memory and respects your browser&apos;s Do Not Track setting.
       </p>
       <p className="mt-4">
-        Questions you ask go to a small server function on this site. It picks the matching passages from Emilio&apos;s public project write-ups and
-        sends your question with those passages to Google&apos;s Gemini API, which writes the answer. That server function does not store or log your
-        question; the analytics above record its text.
+        Portfolio search matches your query against a public index in your browser. When generated answers are available, the site&apos;s server
+        function sends your question and matching passages from Emilio&apos;s public project write-ups to Google&apos;s Gemini API to write an answer.
       </p>
 
       <H2>gog-cli (Google sign-in)</H2>

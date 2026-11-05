@@ -7,7 +7,7 @@ import { TerminalButton } from './TerminalButton';
 const { hero, sayHi } = site;
 
 /** The left column: sticky on desktop, the top of the page on mobile. */
-export function Sidebar() {
+export function Sidebar({ answersEnabled }: { answersEnabled: boolean }) {
   return (
     <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:min-h-screen lg:w-[46%] lg:flex-col lg:justify-between lg:py-24 lg:[@media(max-height:760px)]:py-12">
       <div>
@@ -23,7 +23,7 @@ export function Sidebar() {
         <a href="/emilio-gappa-cv.pdf" download className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-text underline decoration-stroke-strong underline-offset-4 transition-colors hover:text-accent">
           Download CV <span className="text-muted">PDF · 1 page</span> <span aria-hidden="true">↓</span>
         </a>
-        <SectionNav />
+        <SectionNav answersEnabled={answersEnabled} />
         <nav aria-label="Quick links" className="mt-5 flex flex-wrap gap-x-6 lg:hidden">
           {[
             ['work', 'Work'],
@@ -39,20 +39,21 @@ export function Sidebar() {
 
       <div className="mt-8 lg:mt-0">
         <ul className="flex items-center gap-5" aria-label="Elsewhere">
-          {sayHi.links.map((l) => (
-            <li key={l.href}>
+          {sayHi.links.map((l) => {
+            const email = l.href.startsWith('mailto:');
+            return <li key={l.href}>
               <a
                 href={l.href}
-                target="_blank"
-                rel="noopener"
-                aria-label={`${l.label} (opens in a new tab)`}
+                target={email ? undefined : '_blank'}
+                rel={email ? undefined : 'noopener'}
+                aria-label={email ? `Email ${l.label}` : `${l.label} (opens in a new tab)`}
                 title={l.label}
                 className="press -ml-2 inline-flex min-h-11 min-w-11 items-center justify-center text-body hover:text-text"
               >
                 <LinkIcon href={l.href} className="h-6 w-6" />
               </a>
-            </li>
-          ))}
+            </li>;
+          })}
           <li className="hidden lg:block">
             <TerminalButton icon />
           </li>

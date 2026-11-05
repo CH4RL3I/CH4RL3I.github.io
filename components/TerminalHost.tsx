@@ -16,7 +16,7 @@ function typingIn(t: EventTarget | null) {
   return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
 }
 
-export function TerminalHost() {
+export function TerminalHost({ answersEnabled }: { answersEnabled: boolean }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
@@ -35,5 +35,5 @@ export function TerminalHost() {
     };
   }, []);
 
-  return open ? <TerminalOverlay onClose={close} /> : null;
+  return open ? <TerminalOverlay onClose={close} answersEnabled={answersEnabled} /> : null;
 }

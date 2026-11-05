@@ -34,7 +34,7 @@ async function run(request: Request): Promise<Response> {
     {
       index,
       fetch,
-      apiKey: process.env.GEMINI_API_KEY,
+      apiKey: process.env.GEMINI_API_KEY?.trim(),
       model: process.env.GEMINI_MODEL || undefined,
       limiter,
     },

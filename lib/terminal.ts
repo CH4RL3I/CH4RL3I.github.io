@@ -2,7 +2,7 @@
 // built that way, it is small, and it only loads when someone presses `/`.
 import { site } from '@/content/site';
 import { askServer, excerpt, loadIndex, localPassages, splitCitations, MAX_QUESTION, type Chunk } from './ask/client';
-import { track } from './track';
+import { track, trackAskOutcome } from './track';
 
 type Project = {
   id: string; name: string; kind: 'public' | 'private'; pitch: string; headline: string;
@@ -21,7 +21,7 @@ const loadProjects = () =>
 
 const history: string[] = []; // survives closing and reopening within the page
 
-export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => void }) {
+export function mountTerminal(root: HTMLElement, { onClose, answersEnabled }: { onClose: () => void; answersEnabled: boolean }) {
   const q = <T extends Element>(s: string) => root.querySelector(s) as T;
   const log = q<HTMLDivElement>('.t-log');
   const screen = q<HTMLDivElement>('.t-body');
@@ -44,7 +44,8 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
   };
   const a = (href: string, text: string) => {
     const x = el('a', '', text);
-    x.href = href; x.target = '_blank'; x.rel = 'noopener';
+    x.href = href;
+    if (x.protocol !== 'mailto:') { x.target = '_blank'; x.rel = 'noopener'; }
     return x;
   };
   const cmdLink = (text: string, cmd: string) => {
@@ -126,7 +127,7 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
     ['ls', 'list the projects'],
     ['cat <project>', 'pitch, headline result and stack'],
     ['open <project>', 'open the GitHub repo'],
-    ['ask <question>', 'ask the portfolio; answers come with sources'],
+    ['ask <question>', answersEnabled ? 'ask the portfolio and see cited answers' : 'search the portfolio for source excerpts'],
     ['contact', 'where to reach Emilio'],
     ['clear', 'clear the screen'],
     ['exit', 'back to the page (or press esc)'],
@@ -202,10 +203,10 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
       openUrl(p.url, p.url.replace('https://', ''));
     },
     contact() {
-      row('Message Emilio on LinkedIn, it is the fastest way:');
-      row(a(LINKEDIN, 'linkedin.com/in/emilio-gappa-44448223a'));
+      row('Reach Emilio by email or on LinkedIn.');
+      row(span('t-dim', 'Email: '), a('mailto:emilio@gappa.me', 'emilio@gappa.me'));
+      row(span('t-dim', 'LinkedIn: '), a(LINKEDIN, 'linkedin.com/in/emilio-gappa-44448223a'));
       row(span('t-dim', 'Code: '), a(GITHUB, 'github.com/CH4RL3I'));
-      row(span('t-dim', 'No email address is listed here on purpose.'));
     },
     clear() { log.textContent = ''; },
     async sudo(arg) {
@@ -244,11 +245,11 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
       return;
     }
     if (question.length > MAX_QUESTION) return row(span('t-sig', `Questions are capped at ${MAX_QUESTION} characters.`));
-    track('ask', { question, via: 'terminal' });
     const pend = row(span('t-dim t-pending', 'reading the write-ups'));
-    const r = await askServer(question);
+    const r = await askServer(question, answersEnabled);
     pend.remove();
     if (r.kind === 'answer') {
+      trackAskOutcome(r.data.answerable ? 'answer' : 'no_match', 'terminal');
       const ans = el('div', 't-answer');
       for (const part of splitCitations(r.data.answer)) ans.append(typeof part === 'string' ? document.createTextNode(part) : span('t-cite', `[${part}]`));
       if (!r.data.answerable) ans.classList.add('t-dim');
@@ -260,15 +261,26 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
       toBottom();
       return announce(`Answer: ${r.data.answer.replace(/\[\d+\]/g, '')}`);
     }
-    if (r.kind === 'rate-limited') return row(span('t-sig', 'Too many questions in a short time. Try again in a minute.'));
-    if (r.kind === 'invalid') return row(span('t-sig', r.message));
+    if (r.kind === 'rate-limited') {
+      trackAskOutcome('rate_limited', 'terminal');
+      return row(span('t-sig', 'Too many questions in a short time. Try again in a minute.'));
+    }
+    if (r.kind === 'invalid') {
+      trackAskOutcome('error', 'terminal');
+      return row(span('t-sig', r.message));
+    }
     const hits = await localPassages(question, 4);
-    if (!hits) return row(span('t-sig', 'The search index could not be loaded. Try ls.'));
+    if (!hits) {
+      trackAskOutcome('error', 'terminal');
+      return row(span('t-sig', 'The search index could not be loaded. Try ls.'));
+    }
     if (!hits.length) {
+      trackAskOutcome('no_match', 'terminal');
       row('No passage in the index matches that.');
       return row(span('t-dim', 'Try '), cmdLink(`ask "${EXAMPLES[0]}"`, `ask "${EXAMPLES[0]}"`), span('t-dim', ' or '), cmdLink('ls', 'ls'), span('t-dim', '.'));
     }
-    row(span('t-dim', '// answer service unavailable, showing local ranking (BM25)'));
+    trackAskOutcome(r.kind === 'search' ? 'search' : 'fallback', 'terminal');
+    row(span('t-dim', r.kind === 'search' ? '// matching source excerpts' : '// answer service unavailable, showing matching source excerpts'));
     for (const h of hits) log.append(passageBlock(h.chunk, question));
     toBottom();
     announce(`${hits.length} passages found, best match ${hits[0].chunk.repo}, ${hits[0].chunk.section}.`);
@@ -290,7 +302,7 @@ export function mountTerminal(root: HTMLElement, { onClose }: { onClose: () => v
     log.append(r); toBottom();
     if (!t) return;
     const [name, arg] = parse(t);
-    track('command', { name: name.slice(0, 32) });
+    if (COMMANDS.includes(name)) track('command', { name });
     if (/^rm\s+-rf?\s+\/?/.test(t)) return row('rm: / is not mine to delete. ', span('t-dim', 'Try '), cmdLink('ls', 'ls'), span('t-dim', '.'));
     if (name === 'ask') return ask(arg);
     if (name === 'ls' || name === 'dir') return cmds.ls('');

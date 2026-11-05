@@ -177,6 +177,8 @@ if (existsSync(sitePath)) {
   const plain = (x) => x.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]+\)/g, '$1');
   const about = site.about ? ` ${site.about.intro} ${site.about.items.map((i) => plain(i).replace(/^./, (c) => c.toLowerCase())).join(' I ')}` : '';
   addChunk('gappa.me', 'About', `Emilio Gappa, based in ${site.hero.place}. ${site.hero.eyebrow}. ${site.hero.bio}${about}`, home, 'about');
+  const email = site.sayHi.links.find((link) => link.href.startsWith('mailto:'));
+  if (email) addChunk('gappa.me', 'Contact Emilio', `Contact Emilio Gappa by email at ${email.label} or on LinkedIn. ${site.sayHi.text}`, `${home}#say-hi`, 'say-hi');
   for (const pj of site.projects) {
     const text = `${pj.name} (${pj.kind}): ${pj.what} ${pj.figure}: ${pj.figureCaption}. ${pj.result} Stack: ${pj.stack.join(', ')}.${pj.note ? ` ${pj.note}.` : ''}`;
     addChunk('gappa.me', `Work: ${pj.name}`, text, `${home}#work-${pj.id}`, `work-${slug(pj.id)}`);

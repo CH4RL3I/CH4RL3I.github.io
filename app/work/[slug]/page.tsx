@@ -37,6 +37,16 @@ export default async function CaseStudyPage({ params }: Props) {
   const study = getCaseStudy((await params).slug);
   if (!study) notFound();
   const other = CASE_STUDIES.find((entry) => entry.slug !== study.slug);
+  const media = study.media?.recording || study.media?.screenshots?.length ? study.media : undefined;
+  const sections = [
+    ['problem', 'The problem'],
+    ['contribution', 'My contribution'],
+    ['decision', 'The decision'],
+    ['engineering', 'Engineering example'],
+    ['outcomes', 'What changed'],
+    ['demo', 'Try the walkthrough'],
+  ];
+  if (media) sections.unshift(['media', 'Product media']);
 
   return (
     <main id="content" className="mx-auto max-w-screen-xl px-6 pb-16 pt-6 md:px-12 md:pt-10 lg:px-24 lg:pb-24">
@@ -57,12 +67,43 @@ export default async function CaseStudyPage({ params }: Props) {
             {study.stack.map((item) => <li key={item} className="rounded-full bg-chip px-2.5 py-1 text-xs leading-relaxed text-chip-text">{item}</li>)}
           </ul>
           <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-5 gap-y-1 text-sm lg:block">
-            {[['problem', 'The problem'], ['contribution', 'My contribution'], ['decision', 'The decision'], ['outcomes', 'What changed'], ['demo', 'Try the walkthrough']].map(([id, label]) => (
+            {sections.map(([id, label]) => (
               <a key={id} href={`#${id}`} className="flex min-h-11 items-center text-body underline decoration-stroke-strong underline-offset-4 hover:text-text">{label}</a>
             ))}
           </nav>
         </aside>
         <article id="case-content" className="min-w-0 max-w-3xl scroll-mt-10">
+          {media && (
+            <section id="media" aria-labelledby="media-title" className="mb-12 scroll-mt-10">
+              <h2 id="media-title" className="display text-2xl text-text">Product media</h2>
+              {media.recording && (
+                <figure className="mt-5">
+                  <video
+                    src={media.recording.src} poster={media.recording.poster}
+                    width={media.recording.width} height={media.recording.height}
+                    controls playsInline preload="none" aria-label="Product walkthrough" aria-describedby="recording-caption"
+                    className="block h-auto max-h-[40rem] w-full rounded-lg border border-stroke bg-tile object-contain"
+                  >
+                    {media.recording.captions && <track kind="captions" label="English" srcLang="en" src={media.recording.captions} />}
+                  </video>
+                  <figcaption id="recording-caption" className="mt-3 text-sm leading-relaxed">{media.recording.description}</figcaption>
+                </figure>
+              )}
+              {!!media.screenshots?.length && (
+                <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                  {media.screenshots.map((screenshot) => (
+                    <figure key={screenshot.src}>
+                      <img
+                        src={screenshot.src} width={screenshot.width} height={screenshot.height} alt={screenshot.alt}
+                        loading="lazy" decoding="async" className="block h-auto w-full rounded-lg border border-stroke"
+                      />
+                      <figcaption className="mt-3 text-sm leading-relaxed">{screenshot.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
           <section id="problem" aria-labelledby="problem-title" className="scroll-mt-10">
             <h2 id="problem-title" className="display text-2xl text-text">The problem</h2>
             {study.problem.map((paragraph) => <p key={paragraph} className="mt-4 text-sm leading-relaxed sm:text-base">{paragraph}</p>)}
@@ -86,6 +127,32 @@ export default async function CaseStudyPage({ params }: Props) {
                 </li>
               ))}
             </ol>
+          </section>
+          <section id="engineering" aria-labelledby="engineering-title" className="mt-12 scroll-mt-10">
+            <p className="label text-accent">Engineering example · fictional inputs</p>
+            <h2 id="engineering-title" className="display mt-3 text-2xl text-text">{study.engineering.title}</h2>
+            <p className="mt-4 text-sm leading-relaxed sm:text-base">{study.engineering.summary}</p>
+            <figure className="mt-6">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {study.engineering.examples.map((example) => (
+                  <div key={example.title} className="flex min-w-0 flex-col rounded-lg border border-stroke-strong bg-surface/65 p-4 sm:p-5">
+                    <h3 className="text-sm font-medium text-text">{example.title}</h3>
+                    <dl className="my-4 space-y-3 text-sm">
+                      {example.fields.map(({ label, value }) => (
+                        <div key={label} className="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                          <dt>{label}</dt>
+                          <dd className="tabular-nums text-text">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="mt-auto border-t border-stroke pt-3 text-sm font-medium text-accent">{example.result}</p>
+                  </div>
+                ))}
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-muted">{study.engineering.verification}</figcaption>
+            </figure>
+            <p className="mt-4 text-sm leading-relaxed">{study.engineering.reproduce}</p>
+            <a href="#demo" className="inline-flex min-h-11 items-center text-sm text-text underline decoration-stroke-strong underline-offset-4 hover:text-accent">Try it in the walkthrough →</a>
           </section>
           <section id="outcomes" aria-labelledby="outcomes-title" className="mt-12 scroll-mt-10">
             <h2 id="outcomes-title" className="display text-2xl text-text">What changed</h2>

@@ -477,8 +477,12 @@
   },
   "sayHi": {
     "headline": "Let's talk.",
-    "text": "I am available for applied AI and AI product development internships from January 2027. The best way to reach me is LinkedIn; you can also download my CV above.",
+    "text": "I am available for applied AI and AI product development internships from January 2027. Email me or reach out on LinkedIn to discuss an internship.",
     "links": [
+      {
+        "label": "emilio@gappa.me",
+        "href": "mailto:emilio@gappa.me"
+      },
       {
         "label": "LinkedIn",
         "href": "https://www.linkedin.com/in/emilio-gappa-44448223a/"

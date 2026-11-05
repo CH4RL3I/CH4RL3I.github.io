@@ -6,6 +6,7 @@ const TIMEOUT_MS = 12_000;
 
 export type AskResult =
   | { kind: 'answer'; data: AskAnswer }
+  | { kind: 'search' }
   | { kind: 'rate-limited'; retryAfter: number }
   | { kind: 'invalid'; message: string }
   | { kind: 'unavailable' };
@@ -22,10 +23,12 @@ function clean(d: unknown): AskAnswer | null {
     .filter((s): s is AskSource => !!s && typeof s === 'object' && typeof s.n === 'number' && isStr(s.id) && isStr(s.repo) && isStr(s.section) && isStr(s.url) && safeUrl(s.url))
     .slice(0, 6)
     .map((s) => ({ n: s.n, id: s.id.slice(0, 120), repo: s.repo.slice(0, 64), section: s.section.slice(0, 120), url: s.url }));
+  if (o.answerable && !sources.length) return null;
   return { answer: o.answer.slice(0, 1200), sources, answerable: o.answerable, model: isStr(o.model) ? o.model.slice(0, 48) : 'gemini' };
 }
 
-export async function askServer(question: string): Promise<AskResult> {
+export async function askServer(question: string, answersEnabled = true): Promise<AskResult> {
+  if (!answersEnabled) return { kind: 'search' };
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {

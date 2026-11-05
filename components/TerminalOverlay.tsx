@@ -5,7 +5,7 @@ import { mountTerminal } from '@/lib/terminal';
 import './terminal.css';
 
 // Opened from the keyboard many times a session, so it appears without animation.
-export default function TerminalOverlay({ onClose }: { onClose: () => void }) {
+export default function TerminalOverlay({ onClose, answersEnabled }: { onClose: () => void; answersEnabled: boolean }) {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function TerminalOverlay({ onClose }: { onClose: () => void }) {
     // The page behind the dialog can't be focused or clicked while it is open.
     const page = document.querySelector<HTMLElement>('.page');
     page?.setAttribute('inert', '');
-    const unmount = mountTerminal(el, { onClose });
+    const unmount = mountTerminal(el, { onClose, answersEnabled });
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { e.preventDefault(); onClose(); return; }
       if (e.key !== 'Tab') return;
@@ -37,7 +37,7 @@ export default function TerminalOverlay({ onClose }: { onClose: () => void }) {
       html.style.overflow = overflow;
       before?.focus?.({ preventScroll: true });
     };
-  }, [onClose]);
+  }, [onClose, answersEnabled]);
 
   return (
     <div

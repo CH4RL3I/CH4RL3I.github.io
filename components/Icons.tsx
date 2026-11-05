@@ -27,9 +27,15 @@ export const TerminalIcon = ({ className = 'h-5 w-5' }: P) => (
   </svg>
 );
 
-/** Picks the icon for a link by its host. */
+/** Picks the icon for a supported contact or profile link. */
 export function LinkIcon({ href, className }: { href: string; className?: string }) {
   if (href.includes('github.com')) return <GitHubIcon className={className} />;
   if (href.includes('linkedin.com')) return <LinkedInIcon className={className} />;
+  if (href.startsWith('mailto:')) return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinejoin="round" aria-hidden="true" className={className}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
   return null;
 }
