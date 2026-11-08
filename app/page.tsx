@@ -8,9 +8,10 @@ import { SayHi } from '@/components/SayHi';
 import { Sidebar } from '@/components/Sidebar';
 import { Spotlight } from '@/components/Spotlight';
 import { Work } from '@/components/Work';
+import { askBudgetConfig } from '@/lib/ask/budget.mjs';
 
 export default function Home() {
-  const answersEnabled = Boolean(process.env.GEMINI_API_KEY?.trim());
+  const answersEnabled = Boolean(process.env.GEMINI_API_KEY?.trim()) && askBudgetConfig(process.env) !== null;
   return (
     <AppShell answersEnabled={answersEnabled}>
       <a href="#content" className="sr-only-focusable fixed left-4 top-4 z-[60] rounded-md bg-text px-4 py-2 text-sm font-medium text-bg">

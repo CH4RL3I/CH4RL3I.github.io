@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { site } from '@/content/site';
 import type { AskAnswer } from '@/lib/ask/contract';
-import { askServer, excerpt, localPassages, splitCitations, MAX_QUESTION, type Chunk } from '@/lib/ask/client';
+import { askServer, excerpt, searchSources, splitCitations, MAX_QUESTION, type Chunk } from '@/lib/ask/client';
 import { trackAskOutcome } from '@/lib/track';
 import { Reveal } from './Reveal';
 import { SectionLabel } from './SectionLabel';
@@ -12,7 +12,7 @@ type State =
   | { kind: 'idle' }
   | { kind: 'loading'; q: string }
   | { kind: 'answer'; q: string; data: AskAnswer }
-  | { kind: 'passages'; q: string; hits: { chunk: Chunk }[]; fallback: boolean }
+  | { kind: 'passages'; q: string; hits: { chunk: Chunk }[]; notice: string | null }
   | { kind: 'message'; q: string; text: string };
 
 function Answer({ q, data }: { q: string; data: AskAnswer }) {
@@ -58,11 +58,11 @@ function Answer({ q, data }: { q: string; data: AskAnswer }) {
   );
 }
 
-function Passages({ q, hits, fallback }: { q: string; hits: { chunk: Chunk }[]; fallback: boolean }) {
+function Passages({ q, hits, notice }: { q: string; hits: { chunk: Chunk }[]; notice: string | null }) {
   return (
     <div className="rounded-md border border-stroke bg-tile p-5 text-left md:p-6">
       <p className="text-sm text-muted">
-        {fallback && 'Generated answers are temporarily unavailable. '}
+        {notice && `${notice} `}
         {hits.length ? 'Matching passages from the public write-ups.' : 'No passages match that search.'}
       </p>
       <ul className="mt-5 space-y-5">
@@ -99,22 +99,17 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
       trackAskOutcome(r.data.answerable ? 'answer' : 'no_match', 'section');
       return setState({ kind: 'answer', q: text, data: r.data });
     }
-    if (r.kind === 'rate-limited') {
-      trackAskOutcome('rate_limited', 'section');
-      return setState({ kind: 'message', q: text, text: 'That was a lot of questions in a short time. Try again in a minute.' });
-    }
     if (r.kind === 'invalid') {
       trackAskOutcome('error', 'section');
       return setState({ kind: 'message', q: text, text: r.message });
     }
-    const fallback = r.kind === 'unavailable';
-    const hits = await localPassages(text);
+    const { hits, notice, outcome } = await searchSources(text, r.kind);
+    trackAskOutcome(outcome, 'section');
     if (!hits) {
-      trackAskOutcome('error', 'section');
-      return setState({ kind: 'message', q: text, text: 'The project index could not load. Please try again.' });
+      const message = 'The project index could not load. Please try again.';
+      return setState({ kind: 'message', q: text, text: notice ? `${notice} ${message}` : message });
     }
-    trackAskOutcome(hits.length ? (fallback ? 'fallback' : 'search') : 'no_match', 'section');
-    setState({ kind: 'passages', q: text, hits, fallback });
+    setState({ kind: 'passages', q: text, hits, notice });
   }
 
   return (
@@ -183,7 +178,7 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
         <div className="mt-6" aria-live="polite" aria-busy={loading}>
           {loading && <p className="text-sm text-muted">Reading the project write-ups…</p>}
           {state.kind === 'answer' && <Answer q={state.q} data={state.data} />}
-          {state.kind === 'passages' && <Passages q={state.q} hits={state.hits} fallback={state.fallback} />}
+          {state.kind === 'passages' && <Passages q={state.q} hits={state.hits} notice={state.notice} />}
           {state.kind === 'message' && <p className="text-sm text-muted">{state.text}</p>}
         </div>
 

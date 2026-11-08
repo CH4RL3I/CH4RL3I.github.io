@@ -1,0 +1,4 @@
+.comparison:has(input[value='retrieved']:checked) [data-replay-mode='supplied'],
+.comparison:has(input[value='supplied']:checked) [data-replay-mode='retrieved'] {
+  display: none;
+}

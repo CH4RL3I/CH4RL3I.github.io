@@ -1,7 +1,7 @@
 // The old gappa.me terminal, ported from legacy/app.js. Imperative DOM on purpose: it was
 // built that way, it is small, and it only loads when someone presses `/`.
 import { site } from '@/content/site';
-import { askServer, excerpt, loadIndex, localPassages, splitCitations, MAX_QUESTION, type Chunk } from './ask/client';
+import { askServer, excerpt, loadIndex, searchSources, splitCitations, MAX_QUESTION, type Chunk } from './ask/client';
 import { track, trackAskOutcome } from './track';
 
 type Project = {
@@ -261,26 +261,21 @@ export function mountTerminal(root: HTMLElement, { onClose, answersEnabled }: { 
       toBottom();
       return announce(`Answer: ${r.data.answer.replace(/\[\d+\]/g, '')}`);
     }
-    if (r.kind === 'rate-limited') {
-      trackAskOutcome('rate_limited', 'terminal');
-      return row(span('t-sig', 'Too many questions in a short time. Try again in a minute.'));
-    }
     if (r.kind === 'invalid') {
       trackAskOutcome('error', 'terminal');
       return row(span('t-sig', r.message));
     }
-    const hits = await localPassages(question, 4);
+    const { hits, notice, outcome } = await searchSources(question, r.kind, 4);
+    trackAskOutcome(outcome, 'terminal');
+    if (notice) row(span('t-dim', `// ${notice}`));
     if (!hits) {
-      trackAskOutcome('error', 'terminal');
       return row(span('t-sig', 'The search index could not be loaded. Try ls.'));
     }
     if (!hits.length) {
-      trackAskOutcome('no_match', 'terminal');
       row('No passage in the index matches that.');
       return row(span('t-dim', 'Try '), cmdLink(`ask "${EXAMPLES[0]}"`, `ask "${EXAMPLES[0]}"`), span('t-dim', ' or '), cmdLink('ls', 'ls'), span('t-dim', '.'));
     }
-    trackAskOutcome(r.kind === 'search' ? 'search' : 'fallback', 'terminal');
-    row(span('t-dim', r.kind === 'search' ? '// matching source excerpts' : '// answer service unavailable, showing matching source excerpts'));
+    row(span('t-dim', '// matching source excerpts'));
     for (const h of hits) log.append(passageBlock(h.chunk, question));
     toBottom();
     announce(`${hits.length} passages found, best match ${hits[0].chunk.repo}, ${hits[0].chunk.section}.`);

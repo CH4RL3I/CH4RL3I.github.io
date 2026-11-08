@@ -170,6 +170,39 @@ test('missing key gives 503', async () => {
   assert.equal((await handleAsk(post({ question: 'touchdown' }), mk({ apiKey: undefined }))).status, 503);
 });
 
+test('only valid questions with matching passages reserve generation', async () => {
+  const calls = [];
+  const d = mk({
+    reserveGeneration: async () => { calls.push('reserve'); return { ok: true }; },
+    fetch: mockFetch({ capture: () => calls.push('gemini') }),
+  });
+  assert.equal((await handleAsk(post({}), d)).status, 400);
+  assert.equal((await handleAsk(post({ question: 'zzzqqq xylophone' }), d)).status, 200);
+  assert.deepEqual(calls, []);
+  assert.equal((await handleAsk(post({ question: 'touchdown' }), d)).status, 200);
+  assert.deepEqual(calls, ['reserve', 'gemini']);
+});
+
+test('shared budget denial or failure returns a fallback status and skips Gemini', async () => {
+  let generations = 0;
+  const fetch = mockFetch({ capture: () => { generations++; } });
+  const ask = (reserveGeneration) => handleAsk(post({ question: 'touchdown' }), mk({ fetch, reserveGeneration }));
+  const spent = await ask(async () => ({ ok: false, retryAfter: 42 }));
+  assert.equal(spent.status, 429);
+  assert.equal(spent.headers['Retry-After'], '42');
+  assert.equal(spent.headers['Access-Control-Allow-Origin'], 'https://gappa.me');
+  assert.deepEqual(spent.body, { error: 'daily generation limit reached' });
+
+  const missing = await ask(null);
+  assert.equal(missing.status, 503);
+  assert.deepEqual(missing.body, { error: 'generation budget not configured' });
+
+  const failed = await ask(async () => { throw new Error('storage failure with sensitive data'); });
+  assert.equal(failed.status, 503);
+  assert.deepEqual(failed.body, { error: 'generation budget unavailable' });
+  assert.equal(generations, 0);
+});
+
 test('off-topic question gets the fixed reply, the model text is not passed through', async () => {
   const r = await handleAsk(post({ question: 'touchdown recipe for pancakes' }), mk({
     fetch: mockFetch({ reply: { on_topic: false, answerable: true, answer: 'Sure, here is a pancake recipe [1]', cited: [1] } }),

@@ -13,7 +13,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "node --test test/*.test.mjs",
-    "index": "node scripts/build-index.mjs"
+    "index": "node scripts/build-index.mjs",
+    "check:production": "node scripts/check-live-ask.mjs",
+    "promote:production": "node scripts/promote-production.mjs"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",

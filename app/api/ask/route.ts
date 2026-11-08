@@ -1,5 +1,6 @@
 // Thin Next.js adapter around lib/ask/core.mjs; all logic and tests live in the core.
 import index from '@/data/index.json';
+import { askBudgetConfig, createGenerationBudget } from '@/lib/ask/budget.mjs';
 import { createRateLimiter, handleAsk, LIMITS, readBodyCapped } from '@/lib/ask/core.mjs';
 
 export const runtime = 'nodejs';
@@ -7,6 +8,8 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 15;
 
 const limiter = createRateLimiter();
+const budget = askBudgetConfig(process.env);
+const reserveGeneration = budget && createGenerationBudget(budget);
 
 async function run(request: Request): Promise<Response> {
   const h = request.headers;
@@ -37,6 +40,7 @@ async function run(request: Request): Promise<Response> {
       apiKey: process.env.GEMINI_API_KEY?.trim(),
       model: process.env.GEMINI_MODEL || undefined,
       limiter,
+      reserveGeneration,
     },
   );
   return new Response(out.body === null ? null : JSON.stringify(out.body), { status: out.status, headers: out.headers });

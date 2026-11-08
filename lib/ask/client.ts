@@ -82,10 +82,24 @@ export function loadIndex(): Promise<Index | null> {
 
 const FALLBACK_MS = 10_000;
 
-/** Closest passages by local BM25. Always settles within 10 s: null if the index or the ranker can't load. */
-export function localPassages(question: string, k = 3): Promise<{ chunk: Chunk; score: number }[] | null> {
-  const deadline = new Promise<null>((r) => setTimeout(() => r(null), FALLBACK_MS));
-  return Promise.race([rankLocally(question, k), deadline]);
+const SEARCH_NOTICES = {
+  search: null,
+  'rate-limited': 'Generated answers have reached their request limit.',
+  unavailable: 'Generated answers are temporarily unavailable.',
+};
+
+/** Closest passages by local BM25. Returns null hits if the index or ranker fails or times out. */
+export async function searchSources(question: string, reason: keyof typeof SEARCH_NOTICES, k = 3) {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const deadline = new Promise<null>((resolve) => { timer = setTimeout(() => resolve(null), FALLBACK_MS); });
+  const hits = await Promise.race([rankLocally(question, k), deadline]);
+  clearTimeout(timer);
+
+  let outcome: 'search' | 'fallback' | 'error' | 'no_match' | 'rate_limited' = reason === 'search' ? 'search' : 'fallback';
+  if (reason === 'rate-limited') outcome = 'rate_limited';
+  else if (!hits) outcome = 'error';
+  else if (!hits.length) outcome = 'no_match';
+  return { hits, notice: SEARCH_NOTICES[reason], outcome };
 }
 
 async function rankLocally(question: string, k: number): Promise<{ chunk: Chunk; score: number }[] | null> {

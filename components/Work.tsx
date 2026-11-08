@@ -1,5 +1,6 @@
 import { site, type Project } from '@/content/site';
 import { CASE_STUDIES } from '@/content/case-studies';
+import { FOOTNOTE_REPLAY_PATH } from '@/content/footnote-replay';
 import { GitHubIcon, LinkIcon } from './Icons';
 import { Reveal } from './Reveal';
 import { SectionLabel } from './SectionLabel';
@@ -23,9 +24,14 @@ export const Arrow = () => (
 
 function Row({ p }: { p: Project }) {
   const story = CASE_STUDIES.find((study) => study.projectId === p.id);
+  const internalProject = story
+    ? { label: 'Read the case study', href: `/work/${story.slug}`, ariaLabel: `Read the ${p.name} case study` }
+    : p.id === 'footnote'
+      ? { label: 'Replay the evidence', href: FOOTNOTE_REPLAY_PATH, ariaLabel: 'Replay the Footnote evidence' }
+      : undefined;
   const [externalPrimary, ...externalRest] = p.links;
-  const primary = story ? { label: 'Case study', href: `/work/${story.slug}` } : externalPrimary;
-  const rest = story ? p.links : externalRest;
+  const primary = internalProject ?? externalPrimary;
+  const rest = internalProject ? p.links : externalRest;
   const internal = primary?.href.startsWith('/');
   return (
     <div className="project-row group relative grid gap-4 pb-1 transition-opacity duration-200 motion-reduce:transition-none sm:grid-cols-8 sm:gap-8 md:gap-4">
@@ -91,10 +97,10 @@ function Row({ p }: { p: Project }) {
               href={primary.href}
               target={internal ? undefined : '_blank'}
               rel={internal ? undefined : 'noopener'}
-              aria-label={story ? `Read the ${p.name} case study` : `View ${p.name} ${primary.href.includes('github.com') ? 'on GitHub' : 'live demo'} (opens in a new tab)`}
+              aria-label={internalProject?.ariaLabel ?? `View ${p.name} ${primary.href.includes('github.com') ? 'on GitHub' : 'live demo'} (opens in a new tab)`}
               className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-text underline decoration-stroke-strong underline-offset-4 transition-colors hover:text-accent"
             >
-              {story ? 'Read the case study' : primary.href.includes('github.com') ? 'Read the project' : 'Open live demo'}
+              {internalProject?.label ?? (primary.href.includes('github.com') ? 'Read the project' : 'Open live demo')}
               <Arrow />
             </a>
           ) : (
