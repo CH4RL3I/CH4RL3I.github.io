@@ -10,7 +10,7 @@ export function Footer() {
       </p>
       <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span>© 2026 Emilio Gappa</span>
-        <a href="/privacy.html" className="transition-colors hover:text-text">
+        <a href="/privacy.html" className="-my-3 py-3 transition-colors hover:text-text">
           Privacy
         </a>
         <TerminalButton className="hidden sm:inline" />

@@ -134,6 +134,9 @@ export default function FootnoteReplayPage() {
             </li>
           ))}
         </ul>
+        <p className="mt-6 text-sm text-muted">
+          © 2026 Emilio Gappa · <a href="/privacy.html" className="inline-flex min-h-11 items-center hover:text-text">Privacy</a>
+        </p>
       </footer>
     </main>
   );

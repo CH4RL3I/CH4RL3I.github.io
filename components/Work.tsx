@@ -44,7 +44,7 @@ function Row({ p }: { p: Project }) {
               href={primary.href}
               target={internal ? undefined : '_blank'}
               rel={internal ? undefined : 'noopener'}
-              className="group/link inline-flex items-baseline text-base font-medium leading-tight text-text transition-colors hover:text-accent focus-visible:text-accent lg:group-hover:text-accent"
+              className="group/link -my-3 inline-flex items-baseline py-3 text-base font-medium leading-tight text-text transition-colors hover:text-accent focus-visible:text-accent lg:group-hover:text-accent"
             >
               {/* On desktop the title link covers the whole row. */}
               <span aria-hidden="true" className="absolute -inset-x-4 -inset-y-2.5 hidden rounded-md md:-inset-x-6 md:-inset-y-4 lg:block" />
@@ -70,7 +70,7 @@ function Row({ p }: { p: Project }) {
                 rel="noopener"
                 aria-label={`${p.name} on ${l.label}`}
                 title={l.label}
-                className="group/link press relative z-20 mr-4 inline-flex items-center gap-1.5 text-body hover:text-text"
+                className="group/link press relative z-20 -my-3 -ml-3 mr-1 inline-flex items-center gap-1.5 p-3 text-body hover:text-text"
               >
                 <LinkIcon href={l.href} className="h-5 w-5" />
                 {(!/github\.com|linkedin\.com/.test(l.href) || !['GitHub', 'LinkedIn'].includes(l.label)) && (
@@ -159,7 +159,7 @@ export function Work() {
           </ol>
         </section>
       ))}
-      <a href={site.moreLink.href} target="_blank" rel="noopener" className="group/link inline-flex items-center gap-2 font-medium leading-tight text-text transition-colors hover:text-accent">
+      <a href={site.moreLink.href} target="_blank" rel="noopener" className="group/link -my-3 inline-flex items-center gap-2 py-3 font-medium leading-tight text-text transition-colors hover:text-accent">
         <GitHubIcon className="h-5 w-5" />
         {site.moreLink.label}
         <Arrow />

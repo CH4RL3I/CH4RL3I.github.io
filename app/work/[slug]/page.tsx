@@ -173,6 +173,9 @@ export default async function CaseStudyPage({ params }: Props) {
               <a href="/#say-hi" className="inline-flex min-h-11 items-center text-text underline decoration-stroke-strong underline-offset-4 hover:text-accent">Discuss this project →</a>
               {other && <a href={`/work/${other.slug}`} className="inline-flex min-h-11 items-center text-body hover:text-text">Next case study →</a>}
             </div>
+            <p className="mt-6 text-sm text-muted">
+              © 2026 Emilio Gappa · <a href="/privacy.html" className="inline-flex min-h-11 items-center hover:text-text">Privacy</a>
+            </p>
           </footer>
         </article>
       </div>

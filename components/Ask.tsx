@@ -138,7 +138,7 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
               enterKeyHint={answersEnabled ? 'send' : 'search'}
               autoComplete="off"
               placeholder={answersEnabled ? 'Ask about a project or a result' : 'Search for a project or a result'}
-              className="min-w-0 flex-1 bg-transparent py-2 text-base text-text outline-none placeholder:text-muted md:text-sm"
+              className="min-w-0 flex-1 bg-transparent py-2.5 text-base text-text outline-none placeholder:text-muted md:text-sm"
             />
             {q.length > MAX_QUESTION - 50 && (
               <span className="shrink-0 text-[11px] text-muted tabular-nums" aria-live="polite">
@@ -148,7 +148,7 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
             <button
               type="submit"
               disabled={loading || !q.trim()}
-              className="press shrink-0 rounded-md bg-text px-4 py-2 text-sm font-medium text-bg disabled:opacity-40"
+              className="press shrink-0 rounded-md bg-text px-4 py-3 text-sm font-medium text-bg disabled:opacity-40 md:py-2"
             >
               {answersEnabled ? 'Ask' : 'Search'} <span aria-hidden="true">↗</span>
             </button>
@@ -158,6 +158,7 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
           </div>
         </form>
 
+        {/* Each chip's transparent padding makes a 44 px tap target; the pill inside keeps its 28 px look. */}
         <div className="mt-4 flex flex-wrap gap-2">
           {site.ask.examples.map((ex) => (
             <button
@@ -168,9 +169,11 @@ export function Ask({ answersEnabled }: { answersEnabled: boolean }) {
                 setQ(ex);
                 submit(ex);
               }}
-              className="press rounded-full bg-chip px-3 py-1.5 text-left text-xs font-medium text-chip-text hover:text-text disabled:opacity-50"
+              className="press group/chip -my-2 py-2 text-left focus-visible:outline-none disabled:opacity-50"
             >
-              {ex}
+              <span className="block rounded-full bg-chip px-3 py-1.5 text-xs font-medium text-chip-text transition-colors group-hover/chip:text-text group-focus-visible/chip:outline-2 group-focus-visible/chip:outline-offset-3 group-focus-visible/chip:outline-[var(--accent-a)]">
+                {ex}
+              </span>
             </button>
           ))}
         </div>

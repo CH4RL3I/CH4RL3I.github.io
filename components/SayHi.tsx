@@ -22,7 +22,7 @@ export function SayHi() {
             </a>
           )}
           {rest.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener" className="group/link inline-flex items-center gap-2 text-sm font-medium text-text transition-colors hover:text-accent">
+            <a key={l.href} href={l.href} target="_blank" rel="noopener" className="group/link -my-3 inline-flex items-center gap-2 py-3 text-sm font-medium text-text transition-colors hover:text-accent">
               <LinkIcon href={l.href} className="h-4 w-4" />
               {l.label}
               <Arrow />
