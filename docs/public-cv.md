@@ -2,7 +2,7 @@
 
 `content/public-cv.json` is the source for `public/emilio-gappa-cv.pdf`. It contains the publishable professional facts used by the portfolio's CV and can also be indexed by Ask.
 
-The one-page A4 CV is dated 17 November 2026 (company name corrected to Propain Bicycles; content otherwise as on 3 November) and targets applied AI and AI product-development internships from January 2027. It distinguishes the current Gonder working-student role from the internship that ended in October 2026. It includes the previously verified approximately 40% reduction in manual reporting effort at ATLAS, while using qualitative outcomes for projects without measured user impact.
+The one-page A4 CV is dated 17 November 2026 (company name corrected to Propain Bicycles; content otherwise as on 3 November) and targets applied AI and finance internships from January 2027 (positioning chosen by Emilio on 17 November 2026). It distinguishes the current Gonder working-student role from the internship that ended in October 2026. It includes the previously verified approximately 40% reduction in manual reporting effort at ATLAS, while using qualitative outcomes for projects without measured user impact.
 
 Facts were reconciled against the existing verified CV and the public portfolio. Employer work is described at a general product/workflow level. Private contact details, operational customer/fleet counts, customer identities, and confidential work data are excluded. The public contact links are the portfolio, LinkedIn and GitHub. Footnote is described without duplicating a benchmark result, so the PDF does not carry the historical 56% / 92% figures.
 

@@ -69,7 +69,7 @@ def build(output: Path, font_dir: Path | None = None) -> None:
         return table
 
     story = [para(escape(data["name"]), "name"), Spacer(1, 3)]
-    story.append(para("Applied AI &amp; product development internships", "target"))
+    story.append(para("Applied AI &amp; finance internships", "target"))
     story.append(para(f'{escape(data["location"])}  |  {escape(data["availability"])}', "contact"))
     story.append(para("  |  ".join([link("gappa.me", data["links"]["portfolio"]), link("LinkedIn", data["links"]["linkedin"]), link("GitHub / CH4RL3I", data["links"]["github"])]), "contact"))
     story.extend([Spacer(1, 5), para(escape(data["summary"])), heading("Experience")])
@@ -107,7 +107,7 @@ def build(output: Path, font_dir: Path | None = None) -> None:
         canvas.restoreState()
 
     output.parent.mkdir(parents=True, exist_ok=True)
-    doc = SimpleDocTemplate(str(output), pagesize=A4, rightMargin=margin, leftMargin=margin, topMargin=29, bottomMargin=32, title="Emilio Gappa - Applied AI & Product CV", author=data["name"], subject="Public professional CV - available January 2027")
+    doc = SimpleDocTemplate(str(output), pagesize=A4, rightMargin=margin, leftMargin=margin, topMargin=29, bottomMargin=32, title="Emilio Gappa - CV", author=data["name"], subject="Public professional CV - available January 2027")
     doc.build(story, onFirstPage=page, onLaterPages=page)
     print(output)
 

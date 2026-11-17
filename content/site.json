@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "Emilio Gappa",
-    "description": "Emilio Gappa designs applied AI products and software for real workflows. NOVA SBE master’s student in Lisbon, available for applied AI and AI product development internships from January 2027."
+    "title": "Emilio Gappa · Applied AI & finance",
+    "description": "Emilio Gappa builds applied AI products and tests financial ideas against real data. NOVA SBE master’s student on the Finance track in Lisbon, available for applied AI and finance internships from January 2027."
   },
   "hero": {
-    "eyebrow": "Applied AI & AI product internships · Jan 2027",
+    "eyebrow": "Applied AI & finance internships · Jan 2027",
     "roles": [
       {
         "article": "A",
@@ -33,7 +33,7 @@
       "**Build products:** an [operations platform](#work-gonder-platform) at Gonder, [ImmoApp](#work-immoapp) together with Jan, the AI assistant [Co-Driver](#work-co-driver), and [Apto](#work-apto) at a hackathon.",
       "**Test ideas against held-out data** and publish what fails too: none of the [15,000 candidate trading strategies](#work-alpha-graveyard) my search produced survived.",
       "**Freelance** on AI agents and web apps for Connecto / HyCharge, Rancyne and a Microsoft 365 client.",
-      "**Look for an applied AI or AI product development internship** from January 2027. [Download my CV](/emilio-gappa-cv.pdf) or [say hi](#say-hi)."
+      "**Look for an internship in applied AI or finance** from January 2027, for example in AI engineering, tech consulting or private equity. [Download my CV](/emilio-gappa-cv.pdf) or [say hi](#say-hi)."
     ],
     "sources": [
       "/Users/emiliogappa/Projects/jobsuche/cv/main_example.txt",
@@ -477,7 +477,7 @@
   },
   "sayHi": {
     "headline": "Let's talk.",
-    "text": "I am available for applied AI and AI product development internships from January 2027. Email me or reach out on LinkedIn to discuss an internship.",
+    "text": "I am available for internships in applied AI and finance from January 2027. Email me or reach out on LinkedIn to discuss an internship.",
     "links": [
       {
         "label": "emilio@gappa.me",
