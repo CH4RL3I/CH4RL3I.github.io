@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LegalLine } from '@/components/LegalLine';
 
 export const metadata: Metadata = {
   title: 'Privacy · Emilio Gappa',
@@ -15,7 +16,7 @@ const link = 'text-text underline decoration-stroke underline-offset-4 hover:dec
 export default function Privacy() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-16 text-[15px] leading-relaxed text-muted sm:px-6 md:py-24">
-      <a href="/" className="press inline-block rounded-full border border-stroke px-4 py-2 text-xs text-text">
+      <a href="/" className="press inline-flex min-h-11 items-center rounded-full border border-stroke px-4 text-xs text-text">
         ← gappa.me
       </a>
       <h1 className="display mt-12 text-5xl leading-none text-text md:text-6xl">Privacy</h1>
@@ -57,6 +58,7 @@ export default function Privacy() {
           emilio@gappa.me
         </a>
       </p>
+      <LegalLine className="mt-16 border-t border-stroke pt-6" />
     </main>
   );
 }

@@ -9,5 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...CASE_STUDIES.map((study) => ({ url: siteUrl(`/work/${study.slug}`), changeFrequency: 'monthly' as const, priority: 0.8 })),
     { url: siteUrl(FOOTNOTE_REPLAY_PATH), changeFrequency: 'monthly', priority: 0.8 },
     { url: siteUrl('/privacy.html'), changeFrequency: 'yearly', priority: 0.2 },
+    { url: siteUrl('/terms'), changeFrequency: 'yearly', priority: 0.2 },
   ];
 }

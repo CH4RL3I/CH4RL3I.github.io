@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { FOOTNOTE_REPLAY_PATH, footnoteReplay } from '@/content/footnote-replay';
+import { LegalLine } from '@/components/LegalLine';
 import styles from './replay.module.css';
 
 const title = 'Footnote evidence replay · Emilio Gappa';
@@ -134,9 +135,7 @@ export default function FootnoteReplayPage() {
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-sm text-muted">
-          © 2026 Emilio Gappa · <a href="/privacy.html" className="inline-flex min-h-11 items-center hover:text-text">Privacy</a>
-        </p>
+        <LegalLine className="mt-6" />
       </footer>
     </main>
   );

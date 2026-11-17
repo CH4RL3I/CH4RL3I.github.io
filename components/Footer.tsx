@@ -13,6 +13,9 @@ export function Footer() {
         <a href="/privacy.html" className="-my-3 py-3 transition-colors hover:text-text">
           Privacy
         </a>
+        <a href="/terms" className="-mx-1 -my-3 px-1 py-3 transition-colors hover:text-text">
+          Terms
+        </a>
         <TerminalButton className="hidden sm:inline" />
       </p>
     </footer>

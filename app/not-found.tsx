@@ -21,6 +21,9 @@ export default function NotFound() {
         <a href="/privacy.html" className="inline-flex min-h-11 items-center hover:text-text">
           Privacy
         </a>
+        <a href="/terms" className="inline-flex min-h-11 items-center hover:text-text">
+          Terms
+        </a>
       </div>
     </main>
   );
